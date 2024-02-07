@@ -23,7 +23,7 @@ import './App.css';
   );
 } */
 
-class App extends Component {
+/* class App extends Component {
   constructor(props) {
     super(props);
     this.state = { apiResponse: "" };
@@ -48,6 +48,40 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
         </header>
       </div>
+    );
+  }
+} */
+
+
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { apiResponse: "" };
+  }
+
+  callAPI() {
+      fetch("http://104.128.95.54:9000/testAPI")
+          .then(res => res.text())
+          .then(res => this.setState({ apiResponse: res }))
+          .then(err => err);
+  }
+
+  componentDidMount() {
+      this.callAPI();
+  }
+
+  render(){
+    return (
+      <form>
+        <label>name:</label>
+        <input className="loginName" type="text" value={this.state.apiResponse} />
+        <br/>
+        <label>pwsd:</label>
+        <input className="loginPwsd" type="text" value={this.state.apiResponse} />
+        <br/>
+        <input type="submit" />
+      </form>
     );
   }
 }

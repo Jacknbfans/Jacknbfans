@@ -1,36 +1,70 @@
-.websocket {
-    width: 800px;
-    height: 600px;
-    border: 1px solid #ccc;
-    margin: 100px auto 0 auto;
-    text-align: center;
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    min-height: 100vh;
+    display: flex;
+    font-weight: 400;
+    font-family: sans-serif;
+    background: #12c2e9;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #f64f59, #c471ed, #12c2e9);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #f64f59, #c471ed, #12c2e9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+  }
+  
+  body, html, .App, #root, .outer {
+    width: 100%;
+    height: 100%;
+  }
+
+#root {
+    background-image: linear-gradient(to right, #ffecd2, #fcb69f);
 }
-.receive {
+
+form {
+    background-image: url('../login.png');
+
+
+    float: left;
+    position: relative;
+    top: 30%;
+    left: 35%;
+    width: 30%;
+    padding: 10px 10px 10px 10px;
+    border-radius: 15px;
+    height: 60%;
 }
-#receive-box {
-    width: 300px;
-    height: 200px;
-    overflow: auto;
-    margin: 0 auto 24px auto;
-}
-#msg-need-send {
-    width: 300px;
-    height: 100px;
-    resize: none;
-    border-radius: 10px;
-}
-#send-btn {
-    border: none;
-    border-radius: 5px;
-    background: #25d1ff;
-    padding: 5px 10px;
-    color: #fff;
-    cursor: pointer;
-}
-#exit {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background: none;
-    padding: 5px 10px;
-    cursor: pointer;
-}
+
+input[type="submit"] { 
+    position: relative;
+    top: 49%;
+    left: 20%;
+    width: 18em;
+    height: 2.5em;
+    border: 0;
+    opacity: 1;
+    background-color: #12c2e9;
+  } 
+
+  input[type="text"] { 
+    position: relative;
+    width: 18em;
+    border: 0;
+    left: 9.5%;
+    height: 2.5em;
+  }
+
+  .loginName{
+    top: 25%;
+  }
+
+  .loginPwsd{
+    top: 31.5%;
+  }
+
+label { 
+    position: relative;
+    left: 2%;
+    top: 25%;
+  }
