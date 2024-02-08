@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter,Routes,Route,Navigate,Redirect,Link} from 'react-router-dom'
+import { BrowserRouter,Routes,Route,Switch,Redirect,Link} from 'react-router-dom'
 import Home from './Home.js'
 import logo from './logo.svg';
 import './App.css';
@@ -76,30 +76,27 @@ class App extends Component {
 
 
   render(){
-    if(false)
-      return <Redirect to='/Home' />
-      return (
-        <form  >
-          <label>name:</label>
-          <input className="loginName" type="text" value={this.state.apiResponse} />
-          <br/>
-          <label>pwsd:</label>
-          <input className="loginPwsd" type="text" value={this.state.apiResponse} />
-          <br/>
-          <input type="submit"  />
-          <BrowserRouter>
-          <button>
-          <Link to='/home'>666</Link>
-          <Routes>
-            <Route path='/home' element={<Home/>}></Route>
-          </Routes>
-          </button>
-        </BrowserRouter>
-   
-        </form>
-      );
+    return (
+      <form  >
+        <label>name:</label>
+        <input className="loginName" type="text" value={this.state.apiResponse} />
+        <br/>
+        <label>pwsd:</label>
+        <input className="loginPwsd" type="text" value={this.state.apiResponse} />
+        <br/>
+        <input type="submit"  />
+        <BrowserRouter>
+        <button>
+        <Link to='/home'>666</Link>
+        <Routes>
+          <Route path='/home' element={<Home/>}></Route>
+        </Routes>
+        </button>
+      </BrowserRouter>
+ 
+      </form>
+    );
   }
 }
-
 
 export default App;
