@@ -7,10 +7,7 @@
     display: flex;
     font-weight: 400;
     font-family: sans-serif;
-    background: #12c2e9;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #f64f59, #c471ed, #12c2e9);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #f64f59, #c471ed, #12c2e9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    
+
   }
   
   body, html, .App, #root, .outer {
@@ -19,52 +16,83 @@
   }
 
 #root {
-    background-image: linear-gradient(to right, #ffecd2, #fcb69f);
+
+    background-image: url('../history02.jpeg');
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-attachment: fixed;
+    background-size: cover;
+    background-clip: border-box;
 }
 
 form {
-    background-image: url('../login.png');
 
-
-    float: left;
+    background-image: url('../login02.jpeg');
+    background-size: 100%;
+    height: 250px;
+    width: 250px;
+    text-align: center;
+    margin: auto;
+    display: block;
     position: relative;
-    top: 30%;
-    left: 35%;
-    width: 30%;
-    padding: 10px 10px 10px 10px;
-    border-radius: 15px;
-    height: 60%;
+    top: 20%;
+
+}
+
+input{
+  position: absolute;
+  margin: auto;
+  border: 0;
 }
 
 input[type="submit"] { 
-    position: relative;
-    top: 49%;
-    left: 20%;
-    width: 18em;
-    height: 2.5em;
-    border: 0;
-    opacity: 1;
-    background-color: #12c2e9;
+
+  bottom: 10%;
+  left: 25%;
+  width: 50%;
+  height: 15%;
+  border-radius: 10px;
+
   } 
 
   input[type="text"] { 
-    position: relative;
-    width: 18em;
-    border: 0;
-    left: 9.5%;
-    height: 2.5em;
+
+
+    left: 25%;
+    top: 20%;
+    width: 70%;
+    height: 10%;
+    border-radius: 5px;
+    background-color: khaki;
+  }
+
+  input[type="password"] { 
+
+    left: 25%;
+    top: 40%;
+    height: 10%;
+    width: 70%;
+    border-radius: 5px;
+    background-color: khaki;  
   }
 
   .loginName{
     top: 25%;
   }
 
-  .loginPwsd{
-    top: 31.5%;
+
+  .userName { 
+
+    left: 5%;
+    top: 20%;
+  }
+  
+  .userPwd { 
+
+    left: 5%;
+    top: 40%;
   }
 
-label { 
-    position: relative;
-    left: 2%;
-    top: 25%;
+  label{
+    position: absolute;
   }

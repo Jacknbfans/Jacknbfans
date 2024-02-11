@@ -80,11 +80,11 @@ class App extends Component {
       return <Redirect to='/Home' />
       return (
         <form  >
-          <label>name:</label>
-          <input className="loginName" type="text" value={this.state.apiResponse} />
+          <label className='userName'>User:</label>
+          <input type="text" value={this.state.apiResponse} />
           <br/>
-          <label>pwsd:</label>
-          <input className="loginPwsd" type="text" value={this.state.apiResponse} />
+          <label className='userPwd'>Pwd :</label>
+          <input type="password" value={this.state.apiResponse} />
           <br/>
           <input type="submit"  />
           <BrowserRouter>
