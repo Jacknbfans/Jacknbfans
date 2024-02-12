@@ -6,10 +6,11 @@ class Home extends React.Component {
     constructor(props){
         super(props);
         this.state={};
+        console.log('aaaaaaaaa');
     }
     render(){
         return (
-            <h1>There is home</h1>
+            <div>There is home</div>
         );
     }
 }

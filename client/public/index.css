@@ -96,3 +96,9 @@ input[type="submit"] {
   label{
     position: absolute;
   }
+
+  .linkLogin{
+    position: absolute;
+    top: 67%;
+    left: 47%;
+  }

@@ -86,10 +86,10 @@ class App extends Component {
           <label className='userPwd'>Pwd :</label>
           <input type="password" value={this.state.apiResponse} />
           <br/>
-          <input type="submit"  />
+          {/* <input type="submit"  /> */}
           <BrowserRouter>
           <button>
-          <Link to='/home'>666</Link>
+          <Link className='linkLogin' to='/home'>222</Link>
           <Routes>
             <Route path='/home' element={<Home/>}></Route>
           </Routes>
