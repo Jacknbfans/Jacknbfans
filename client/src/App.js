@@ -1,105 +1,25 @@
-import React, { Component } from 'react';
-import { BrowserRouter,Routes,Route,Navigate,Redirect,Link} from 'react-router-dom'
-import Home from './Home.js'
-import logo from './logo.svg';
+import React, { memo } from 'react';
+import { useRoutes , Navigate , NavLink } from 'react-router-dom';
+import routes from './router';
+
 import './App.css';
+import './AppMenu.css';
 
-
-/* function App() {
+const App = memo(() => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='app'>
+    <div className='topHeader'>header</div>
+    <div className='leftMenu'>
+      <NavLink to="/home" className="navMenu">home</NavLink> 
+      <NavLink to="/websocket" className="navMenu">websocket</NavLink>
+      <NavLink to="/rabbitmq" className="navMenu">rabbitmq</NavLink>
     </div>
-  );
-} */
-
-/* class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { apiResponse: "" };
-  }
-
-  callAPI() {
-      fetch("http://104.128.95.54:9000/testAPI")
-          .then(res => res.text())
-          .then(res => this.setState({ apiResponse: res }))
-          .then(err => err);
-  }
-
-  componentDidMount() {
-      this.callAPI();
-  }
-
-  render(){
-    return (
-      <div className="App">
-        <header className="App-header">
-          <p className="App-intro">{this.state.apiResponse}</p>
-          <img src={logo} className="App-logo" alt="logo" />
-        </header>
-      </div>
-    );
-  }
-} */
-
-
-class App extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = { apiResponse: "" };
-  }
-
-  callAPI() {
-      fetch("http://104.128.95.54:9000/testAPI")
-          .then(res => res.text())
-          .then(res => this.setState({ apiResponse: res }))
-          .then(err => err);
-  }
-
-  componentDidMount() {
-      this.callAPI();
-  }
-
-
-  render(){
-    if(false)
-      return <Redirect to='/Home' />
-      return (
-        <form  >
-          <label className='userName'>User:</label>
-          <input type="text" value={this.state.apiResponse} />
-          <br/>
-          <label className='userPwd'>Pwd :</label>
-          <input type="password" value={this.state.apiResponse} />
-          <br/>
-          {/* <input type="submit"  /> */}
-          <BrowserRouter>
-          <button>
-          <Link className='linkLogin' to='/home'>222</Link>
-          <Routes>
-            <Route path='/home' element={<Home/>}></Route>
-          </Routes>
-          </button>
-        </BrowserRouter>
-   
-        </form>
-      );
-  }
-}
+    <div className='rightMain'>
+      { useRoutes(routes) }
+    </div>
+</div>
+  )
+})
 
 
 export default App;
