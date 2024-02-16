@@ -3,7 +3,7 @@ import { useRoutes , Navigate , NavLink } from 'react-router-dom';
 import routes from './router';
 
 import './App.css';
-import './AppMenu.css';
+import './css/AppMenu.css';
 
 const App = memo(() => {
   return (
@@ -11,8 +11,9 @@ const App = memo(() => {
     <div className='topHeader'>header</div>
     <div className='leftMenu'>
       <NavLink to="/home" className="navMenu">home</NavLink> 
-      <NavLink to="/websocket" className="navMenu">websocket</NavLink>
-      <NavLink to="/rabbitmq" className="navMenu">rabbitmq</NavLink>
+      <NavLink to="/websocket" className="navMenu">websocket1.0</NavLink>
+      <NavLink to="/rabbitmq" className="navMenu">rabbitmq0.1</NavLink>
+      <NavLink to="/redis" className="navMenu">redis0</NavLink>
     </div>
     <div className='rightMain'>
       { useRoutes(routes) }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './ws.css'
+import '../../css/ws.css'
 
 const ws = new WebSocket('ws://104.128.95.54:3030/websockets/test')
 ws.onopen = e => {
