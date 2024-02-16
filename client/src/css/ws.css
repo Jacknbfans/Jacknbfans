@@ -1,9 +1,10 @@
 .websocket {
-    width: 800px;
-    height: 600px;
+    width: 70%;
+    height: inherit;
     border: 1px solid #ccc;
-    margin: 100px auto 0 auto;
+    margin: 20px auto 0 100px;
     text-align: center;
+    position: absolute;
 }
 .receive {
 }

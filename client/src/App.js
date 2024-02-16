@@ -8,7 +8,9 @@ import './css/AppMenu.css';
 const App = memo(() => {
   return (
     <div className='app'>
-    <div className='topHeader'>header</div>
+    <div className='topHeader'>
+      <div className='topDog'></div>
+    </div>
     <div className='leftMenu'>
       <NavLink to="/home" className="navMenu">home</NavLink> 
       <NavLink to="/websocket" className="navMenu">websocket1.0</NavLink>
