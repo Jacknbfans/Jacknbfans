@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../../css/ws.css'
-//import { withRouter } from 'react-router-dom'
+//import { useNavigate, withRouter } from 'react-router-dom'
 
 const ws = new WebSocket('ws://104.128.95.54:3030/websockets/test');
 
@@ -13,13 +13,12 @@ window.addEventListener('scroll', () => {
   }
 });
 
-window.onbeforeunload = function(e){
-  ws.close();
-  console.log('beforeunload:'+e);
+window.onload= function(){
+  console.log('onload');
 }
 
 class Websocket extends Component {
-
+  
     constructor(props) {
       super(props);
       this.handleClick = this.handleClick.bind(this);
@@ -34,6 +33,7 @@ class Websocket extends Component {
     }
   
     componentDidMount() {
+      
         this.callAPI();
         console.log('componentDidMount');
 
@@ -56,41 +56,35 @@ class Websocket extends Component {
         document.getElementById('send-btn').addEventListener('click',this.startClick);
         document.getElementById('exit').addEventListener('click',this.handleClick);
 
-      
-
     }
 
     componentWillMount () {
-      // 拦截判断是否离开当前页面
-      //window.addEventListener('beforeunload', this.beforeunload);
       console.log('componentWillMount');
     }
 
     componentWillUnmount () {
-      // 销毁拦截判断是否离开当前页面
-      //window.removeEventListener('beforeunload', this.beforeunload);
-      //ws.close();
-      //this.beforeunload();
       console.log('componentWillUnmount');
     }
 
-    beforeunload () {
-      //ws.close();
-      console.log('beforeunload');
-    } 
 
     handleClick() {
       ws.close();
-      console.log('handleClick');
+      console.log('handleClick close');
     } 
 
     startClick() {
 
         console.log('startState:'+ws.state);
-        const msgBox = document.getElementById('msg-need-send');
-        ws.send(msgBox.value);
-        console.log('startMsgBox:'+msgBox.value);
 
+          if(ws.readyState===1){
+            console.log('1111111')
+            const msgBox = document.getElementById('msg-need-send');
+            ws.send(msgBox.value);
+            console.log('startMsgBox:'+msgBox.value);
+          }else{
+            console.log('2222222');
+            window.location.reload();
+          }
     } 
 
     render(){
