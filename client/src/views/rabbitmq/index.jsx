@@ -1,9 +1,15 @@
-import React, { memo } from 'react'
+import React, { Component } from 'react'
 
-const Rabbitmq = memo(() => {
-    return (
-        <div>Rabbitmq</div>
-    )
-})
+
+class Rabbitmq extends Component {
+  
+    render(){
+        return (
+          <div className="rabbitmqMain">
+                rabbitmq0.2
+        </div>
+        );
+      }
+}
 
 export default Rabbitmq

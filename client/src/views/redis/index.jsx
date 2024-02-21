@@ -4,7 +4,7 @@ import React, { memo } from 'react'
 
 const Redis = memo(() => {
     return (
-        <div>Redis</div>
+        <div className='redisMain'>Redis</div>
     )
 })
 

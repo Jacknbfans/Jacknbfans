@@ -14,6 +14,8 @@ var app = express();
 //
 const expressWs = require('express-ws')
 const websocket = require('./routes/websockets')
+const amqp = require('amqplib');
+const amqpRouter = require('./routes/rabbitMQ');
 expressWs(app);
 
 
@@ -37,9 +39,23 @@ app.use('/testAPI', testAPIRouter);
 //app.use(express.static('public'))
 app.use('/websockets', websocket)
 //app.get('*', (req, res) => {})
+
+app.use('/rabbitMQ', amqpRouter);
+
 app.listen(3030, () => {
   console.log('server is listening on port 3030')
 }) 
+
+/* var RabbitMQ = require("rabbitmq").createConnect("amqp://rabbit-mq-host").RabbitMQ;
+ 
+    var testQueue = new RabbitMQ("test.queue");
+ 
+    testQueue.subscribe(function(message){
+        console.log(message);
+    }, function(){
+        testQueue.publish({test: "test"});
+    }); */
+
 
 
 // catch 404 and forward to error handler
