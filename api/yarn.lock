@@ -103,7 +103,7 @@
   dependencies:
     "color-convert" "^2.0.1"
 
-"array-flatten@1.1.1":
+"array-flatten@^1.1.1", "array-flatten@1.1.1":
   "integrity" "sha512-PCVAQswWemu6UdxsDFFX/+gVeYqKAod3D3UVm91jHwynguOwAvYPhx8nNlM++NqRcK6CxxpUafjmhIdKiHibqg=="
   "resolved" "https://registry.npmjs.org/array-flatten/-/array-flatten-1.1.1.tgz"
   "version" "1.1.1"
@@ -718,6 +718,15 @@
   "resolved" "https://registry.npmjs.org/methods/-/methods-1.1.2.tgz"
   "version" "1.1.2"
 
+"middlewary@^2.0.0":
+  "integrity" "sha512-ohG1awq3r6HIu42H9v/gTU6TtqaVONLkRqlBJrpo5YNTrkURf60prs1mGCwrkop2F4pyQ29e5D6xA2i60BR0cw=="
+  "resolved" "https://registry.npmjs.org/middlewary/-/middlewary-2.0.2.tgz"
+  "version" "2.0.2"
+  dependencies:
+    "array-flatten" "^1.1.1"
+    "debug" "^4.3.4"
+    "path-to-regexp" "0.1.7"
+
 "mime-db@1.52.0":
   "integrity" "sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg=="
   "resolved" "https://registry.npmjs.org/mime-db/-/mime-db-1.52.0.tgz"
@@ -857,6 +866,15 @@
   "integrity" "sha512-FIqgj2EUvTa7R50u0rGsyTftzjYmv/a3hO345bZNrqabNqjtgiDMgmo4mkUjd+nzU5oF3dClKqFIPUKybUyqoQ=="
   "resolved" "https://registry.npmjs.org/querystringify/-/querystringify-2.2.0.tgz"
   "version" "2.2.0"
+
+"rabbitmq-express@^1.0.4":
+  "integrity" "sha512-TGWlEwBM+jqpN+EDIFlZe+1MSSDTvPHNvjYT8q+ucFg2F27YqP967lG2nhc6/CxFnCZZGfXxV64S21n/xeukxw=="
+  "resolved" "https://registry.npmjs.org/rabbitmq-express/-/rabbitmq-express-1.0.4.tgz"
+  "version" "1.0.4"
+  dependencies:
+    "amqplib" "^0.10.3"
+    "debug" "^4.3.4"
+    "middlewary" "^2.0.0"
 
 "range-parser@~1.2.1":
   "integrity" "sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg=="

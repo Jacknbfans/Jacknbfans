@@ -18,6 +18,10 @@ const amqp = require('amqplib');
 const amqpRouter = require('./routes/rabbitMQ');
 expressWs(app);
 
+const rabbitExpress = require('rabbitmq-express');
+const server = rabbitExpress();
+
+
 
 
 // view engine setup

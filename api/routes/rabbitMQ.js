@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
     })
     .catch((error) => {
       console.error('Error connecting to RabbitMQ', error);
-    });
+    }); 
 
     res.send('Real-Time Application');
 });
