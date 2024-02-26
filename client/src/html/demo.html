@@ -1,9 +1,21 @@
-//import React, { Component , useRef } from 'react'
-import React, { Component } from 'react'
-
-import { Stomp } from '@stomp/stompjs'
-
-/**
+<html>  
+    <head>  
+        <title>WebSocket</title>  
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+    </head>  
+    <body>  
+    <div id="main" style="width: 200px;height: 200px;background-color: antiquewhite;">
+        <div id="message"></div>  
+    </div>  
+    </body> 
+	<script src="./js/jquery.js"></script>
+	<!-- stomp协议的客户端脚本 -->
+	<script src="./js/stomp.js"></script>
+	<!-- SockJS的客户端脚本 -->
+	<script src="./js/sockjs.js"></script>	
+    <script type="text/javascript">
+	
+	/**
 	/queue/queuename：使用默认转发器订阅/发布消息，默认由stomp自动创建一个持久化队列 
 
 	/amq/queue/queuename：与/queue/queuename的区别在于队列不由stomp自动进行创建，队列不存在失败 
@@ -24,7 +36,9 @@ import { Stomp } from '@stomp/stompjs'
 	
 	*/
 
-    var ws = new WebSocket('ws://104.128.95.54:3030/websockets/test');
+	
+	
+	var ws = new WebSocket('ws://192.168.10.182:15674/ws');
 	// 获得Stomp client对象
 	var client = Stomp.over(ws);
 
@@ -37,8 +51,7 @@ import { Stomp } from '@stomp/stompjs'
 		//data.body是接收到的数据
 		client.subscribe("/exchange/exchange/test", function(data) {
 			var msg = data.body;
-			//$("#message").append("收到数据：" + msg);
-            console.log('message : ' + msg);
+			$("#message").append("收到数据：" + msg);
 		});
 	};
 
@@ -48,43 +61,8 @@ import { Stomp } from '@stomp/stompjs'
 	};
 
 	// 连接RabbitMQ
-	client.connect('guest', 'guest', on_connect, on_error, '/');
-	console.log(">>>连接上http://104.128.95.54:15672/");
-
-//const iRef = useRef<HTMLIFrameElement | null>(null);
-const handleLoad = () => {
-  setTimeout(() => {  
-   //iRef.current.contentWindow.postMessage('hello', '*');
-   console.log('this is handleLoad');
-  }, [100]);
-}
-
-export default class Rabbitmq extends Component {
-
-    constructor(){
-        super()
-        this.execComd = this.execComd.bind(this)
-        this.myRef=React.createRef();
-    }
-
-    componentDidMount(){
-      
-    }
-
-    execComd(command){
-      console.log("666");
-      console.log(this.myRef.current.contentWindow.postMessage('hello', '*'));
-    
-    }
-
-    render() {
-        return (
-            <> 
-                <div className='rabbitmqMain'>
-                    <button onClick={()=>this.execComd('bold')}>Click</button>
-                    <iframe ref={this.myRef} onLoad={handleLoad} id="rabbitmq" name="rabbitmq" src='http://104.128.95.54:15672' title='rabbitmq' width='100%' height='100%' />
-                </div>
-            </>
-        )
-    }
-}
+	client.connect('admin', '123456', on_connect, on_error, '/');
+	console.log(">>>连接上http://192.168.10.182:15674");
+	
+	</script>  
+ </html>  
