@@ -19,25 +19,7 @@ const rmq = require('../lib/RabbitMQ');
 };  */
 
 
-async function loginToRabbitMq() {
-  try {
-      // 创建与RabbitMQ服务器的连接
-      const connection = await amqp.connect({ url: 'amqp://localhost' });
-      
-      console.log("成功连接到 RabbitMQ");
-      
-      // 关闭连接
-      setTimeout(() => {
-          //connection.close();
-          //process.exit(0);
-          console.log('hehe');
-      }, 500);
-  } catch (error) {
-      console.error(`无法连接到 RabbitMQ: ${error}`);
-  }
-}
 
-loginToRabbitMq();
 
 router.get('/', (req, res) => {
 
@@ -48,9 +30,13 @@ router.get('/', (req, res) => {
     .then((connection) => connection.createChannel())
     .then((channel) => {
       // Channel is ready for use
-      channel.assertExchange('direct_exchange', 'direct', { durable: false });
-      channel.assertQueue('chat_messages', { durable: false });
-      channel.bindQueue('chat_messages', 'direct_exchange', 'chat');
+      //channel.assertExchange('direct_exchange', 'direct', { durable: false });
+      //channel.assertQueue('chat_messages', { durable: false });
+      //channel.bindQueue('chat_messages', 'direct_exchange', 'chat');
+      channel.assertExchange('exchange.direct', 'direct', { durable: true });
+      channel.assertQueue('gulixueyuan.news', { durable: true });
+      channel.bindQueue('gulixueyuan.news', 'exchange.direct', 'gulixueyuan.news');
+      //channel.publish('exchange.direct','ctra.news','snoopy9528');
     })
 
     //const message = req.body.message;
@@ -60,17 +46,18 @@ router.get('/', (req, res) => {
   
     //res.sendStatus(200);
     
-    res.send("成功连接到 RabbitMQ");
+    console.log("成功连接到 RabbitMQ_get");
+    res.send("成功连接到 RabbitMQ_get");
     
     // 关闭连接
     setTimeout(() => {
-        //connection.close();
-        //process.exit(0);
+        connection.close();
+        process.exit(0);
         console.log('haha');
-    }, 500);
+    }, 3600000);
 } catch (error) {
     //console.error(`无法连接到 RabbitMQ: ${error}`);
-    res.send(`无法连接到 RabbitMQ: ${error}`);
+    res.send(`无法连接到 RabbitMQ_get: ${error}`);
 }
 
 
@@ -89,6 +76,39 @@ router.get('/', (req, res) => {
     res.send('Real-Time Application'); */
 });
 
+
+async function loginToRabbitMq() {
+  try {
+      // 创建与RabbitMQ服务器的连接
+      const connection = await amqp.connect({ url: 'amqp://localhost' })
+       .then((connection) => connection.createChannel())
+      .then((channel) => {
+        // Channel is ready for use
+        //channel.assertExchange('direct_exchange', 'direct', { durable: false });
+        //channel.assertQueue('chat_messages', { durable: false });
+        //channel.bindQueue('chat_messages', 'direct_exchange', 'chat');
+        channel.assertExchange('/exchange.direct', 'direct', { durable: true });
+        channel.assertQueue('gulixueyuan.news', { durable: true });
+        channel.bindQueue('gulixueyuan.news', '/exchange.direct', 'gulixueyuan.news');
+        //channel.publish('/exchange.direct','ctra.news','snoopy9527');
+      }) 
+
+      
+      console.log("成功连接到 RabbitMQ_async");
+
+      
+      // 关闭连接
+      setTimeout(() => {
+          connection.close();
+          process.exit(0);
+          console.log('hehe');
+      }, 3600000);
+  } catch (error) {
+      console.error('无法连接到 RabbitMQ_async: ${error}');
+  }
+}
+
+loginToRabbitMq();
 
 /* 
 router.post('/message', (req, res) => {

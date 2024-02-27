@@ -1,6 +1,4 @@
-//import React, { Component , useRef } from 'react'
-import React, { Component } from 'react'
-
+import React from 'react'
 import { Stomp } from '@stomp/stompjs'
 
 /**
@@ -24,67 +22,73 @@ import { Stomp } from '@stomp/stompjs'
 	
 	*/
 
-    var ws = new WebSocket('ws://104.128.95.54:3030/websockets/test');
-	// 获得Stomp client对象
-	var client = Stomp.over(ws);
+   
 
-	// SockJS does not support heart-beat: disable heart-beats
-	client.heartbeat.outgoing = 0;
-	client.heartbeat.incoming = 0;
 
-	// 定义连接成功回调函数
-	var on_connect = function(x) {
-		//data.body是接收到的数据
-		client.subscribe("/exchange/exchange/test", function(data) {
-			var msg = data.body;
-			//$("#message").append("收到数据：" + msg);
-            console.log('message : ' + msg);
-		});
-	};
 
-	// 定义错误时回调函数
-	var on_error =  function() {
-		console.log('error');
-	};
 
-	// 连接RabbitMQ
-	client.connect('guest', 'guest', on_connect, on_error, '/');
-	console.log(">>>连接上http://104.128.95.54:15672/");
 
-//const iRef = useRef<HTMLIFrameElement | null>(null);
-const handleLoad = () => {
-  setTimeout(() => {  
-   //iRef.current.contentWindow.postMessage('hello', '*');
-   console.log('this is handleLoad');
-  }, [100]);
-}
-
-export default class Rabbitmq extends Component {
-
-    constructor(){
-        super()
-        this.execComd = this.execComd.bind(this)
-        this.myRef=React.createRef();
+ 
+class LogComponent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { logs: [] }; // 初始化logs状态数组
     }
-
-    componentDidMount(){
-      
-    }
-
-    execComd(command){
-      console.log("666");
-      console.log(this.myRef.current.contentWindow.postMessage('hello', '*'));
     
-    }
+    componentDidMount() {
+		var ws = new WebSocket('ws://104.128.95.54:3030/websockets/test');
+		// 获得Stomp client对象
+		var client = Stomp.over(ws);
+	
+		// SockJS does not support heart-beat: disable heart-beats
+		client.heartbeat.outgoing = 0;
+		client.heartbeat.incoming = 0;
+	
+		// 定义连接成功回调函数
+		var on_connect = function(x) {
+			client.send("/exchange.direct","gulixueyuan.news","gulixueyuan.news");
+			//data.body是接收到的数据
+			client.subscribe("/exchange.direct", "gulixueyuan.news",function(data) {
+				var msg = data.body;
+				//$("#message").append("收到数据：" + msg);
+				console.log('message : ' + msg);
+			});
+		};
+	
+		// 定义错误时回调函数
+		var on_error =  function() {
+			console.log('error');
+		};
+	
+		// 连接RabbitMQ
+		client.connect('guest', 'guest', on_connect, on_error, '/');
+		console.log(">>>连接上http://104.128.95.54:15672/");
 
+
+
+
+        console.log('component mounted'); // 测试mounted事件
+        
+        const originalConsoleLog = window.console.log; // 保存原始的console.log函数
+        
+        window.console.log = (...args) => {
+            this.setState({ logs: [...this.state.logs, args] }); // 更新logs状态数组
+            
+            if (typeof originalConsoleLog === 'function') {
+                originalConsoleLog(...args); // 调用原始的console.log函数
+            } else {
+                throw new Error("originalConsoleLog is not a function");
+            }
+        };
+    }
+    
     render() {
-        return (
-            <> 
-                <div className='rabbitmqMain'>
-                    <button onClick={()=>this.execComd('bold')}>Click</button>
-                    <iframe ref={this.myRef} onLoad={handleLoad} id="rabbitmq" name="rabbitmq" src='http://104.128.95.54:15672' title='rabbitmq' width='100%' height='100%' />
-                </div>
-            </>
-        )
+        return <div className='rabbitmqMain'>{this.renderLogs()}</div>;
+    }
+    
+    renderLogs() {
+        return this.state.logs.map(([message]) => <p key={Math.random()} style={{ whiteSpace: "pre" }}>{`${message}`}</p>);
     }
 }
+ 
+export default LogComponent;

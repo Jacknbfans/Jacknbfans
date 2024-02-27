@@ -1,6 +1,4 @@
-//import React, { Component , useRef } from 'react'
-import React, { Component } from 'react'
-
+import React, { memo } from 'react'
 import { Stomp } from '@stomp/stompjs'
 
 /**
@@ -51,40 +49,10 @@ import { Stomp } from '@stomp/stompjs'
 	client.connect('guest', 'guest', on_connect, on_error, '/');
 	console.log(">>>连接上http://104.128.95.54:15672/");
 
-//const iRef = useRef<HTMLIFrameElement | null>(null);
-const handleLoad = () => {
-  setTimeout(() => {  
-   //iRef.current.contentWindow.postMessage('hello', '*');
-   console.log('this is handleLoad');
-  }, [100]);
-}
+const Rabbitmq = memo(() => {
+    return (
+        <div className='rabbitmqMain'>Rabbitmq</div>
+    )
+})
 
-export default class Rabbitmq extends Component {
-
-    constructor(){
-        super()
-        this.execComd = this.execComd.bind(this)
-        this.myRef=React.createRef();
-    }
-
-    componentDidMount(){
-      
-    }
-
-    execComd(command){
-      console.log("666");
-      console.log(this.myRef.current.contentWindow.postMessage('hello', '*'));
-    
-    }
-
-    render() {
-        return (
-            <> 
-                <div className='rabbitmqMain'>
-                    <button onClick={()=>this.execComd('bold')}>Click</button>
-                    <iframe ref={this.myRef} onLoad={handleLoad} id="rabbitmq" name="rabbitmq" src='http://104.128.95.54:15672' title='rabbitmq' width='100%' height='100%' />
-                </div>
-            </>
-        )
-    }
-}
+export default Rabbitmq
