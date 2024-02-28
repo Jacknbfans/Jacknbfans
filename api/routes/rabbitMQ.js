@@ -25,6 +25,10 @@ router.get('/', (req, res) => {
 
 
   try {
+    const message = req.body.message;
+    console.log('req.body.message : ' + req.body.message);
+    const tmp = 'hello get';
+    //console.log('res : ' + res.sendStatus(200))
     // 创建与RabbitMQ服务器的连接
     const connection =  amqp.connect({ url: 'amqp://localhost' })
     .then((connection) => connection.createChannel())
@@ -34,9 +38,14 @@ router.get('/', (req, res) => {
       //channel.assertQueue('chat_messages', { durable: false });
       //channel.bindQueue('chat_messages', 'direct_exchange', 'chat');
       channel.assertExchange('exchange.direct', 'direct', { durable: true });
-      channel.assertQueue('gulixueyuan.news', { durable: true });
-      channel.bindQueue('gulixueyuan.news', 'exchange.direct', 'gulixueyuan.news');
-      //channel.publish('exchange.direct','ctra.news','snoopy9528');
+      channel.assertQueue('ctra.news', { durable: true });
+      channel.bindQueue('ctra.news', 'exchange.direct', 'ctra.news');
+      
+      //channel.queue_declare('ctra.news',{ durable: true });
+      // Publish the message to RabbitMQ
+      channel.publish('exchange.direct', 'ctra.news', Buffer.from(tmp));
+    
+      //res.sendStatus(200);
     })
 
     //const message = req.body.message;
@@ -53,7 +62,7 @@ router.get('/', (req, res) => {
     setTimeout(() => {
         connection.close();
         process.exit(0);
-        console.log('haha');
+        console.log('get');
     }, 3600000);
 } catch (error) {
     //console.error(`无法连接到 RabbitMQ: ${error}`);
@@ -79,6 +88,8 @@ router.get('/', (req, res) => {
 
 async function loginToRabbitMq() {
   try {
+    //const message = req.body.message;
+    const message = 'hell async';
       // 创建与RabbitMQ服务器的连接
       const connection = await amqp.connect({ url: 'amqp://localhost' })
        .then((connection) => connection.createChannel())
@@ -87,10 +98,13 @@ async function loginToRabbitMq() {
         //channel.assertExchange('direct_exchange', 'direct', { durable: false });
         //channel.assertQueue('chat_messages', { durable: false });
         //channel.bindQueue('chat_messages', 'direct_exchange', 'chat');
-        channel.assertExchange('/exchange.direct', 'direct', { durable: true });
-        channel.assertQueue('gulixueyuan.news', { durable: true });
-        channel.bindQueue('gulixueyuan.news', '/exchange.direct', 'gulixueyuan.news');
-        //channel.publish('/exchange.direct','ctra.news','snoopy9527');
+        channel.assertExchange('exchange.direct', 'direct', { durable: true });
+        channel.assertQueue('ctra.news', { durable: true });
+        channel.bindQueue('ctra.news', 'exchange.direct', 'ctra.news');
+        
+        //channel.queue_declare(queue='gulixueyuan.news');
+        // Publish the message to RabbitMQ
+        channel.publish('exchange.direct', 'ctra.news', Buffer.from(message));
       }) 
 
       
@@ -101,7 +115,7 @@ async function loginToRabbitMq() {
       setTimeout(() => {
           connection.close();
           process.exit(0);
-          console.log('hehe');
+          console.log('async');
       }, 3600000);
   } catch (error) {
       console.error('无法连接到 RabbitMQ_async: ${error}');
