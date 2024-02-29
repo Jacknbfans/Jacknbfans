@@ -1,18 +1,26 @@
 .websocket {
-    width: 70%;
-    height: inherit;
-    border: 1px solid #ccc;
-    margin: 20px auto 0 100px;
-    text-align: center;
+    width: 80%;
+    height: 90%;
+    border: 10px solid #000;
+    margin-left: 9%;
     position: absolute;
+    background: aliceblue;
+    display: block;
 }
 .receive {
 }
+
+.send{
+    position: absolute;
+    margin-left: 40%;
+    bottom: 0;
+}
 #receive-box {
-    width: 300px;
-    height: 200px;
+    text-align: center;
+    width: 500px;
+    height: 400px;
     overflow: auto;
-    margin: 0 auto 24px auto;
+    margin: 3em auto auto auto;
 }
 #msg-need-send {
     width: 300px;

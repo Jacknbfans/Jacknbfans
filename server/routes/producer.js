@@ -10,7 +10,7 @@ async function producer() {
     const routingKey = 'ctra.news';
     const msg = 'Producer';
     await channel.assertExchange(exchangeName,'direct', { durable : true });
-    for(let i = 0; i < 5; i++){
+    for(let i = 0; i < 1000; i++){
       console.log(i);
       await channel.publish(
         exchangeName,
