@@ -1,11 +1,11 @@
 
-### Hi there is nodejsWithRabbitMQ👋
+### Hi there is Snoopy a special repository nodejsWithRabbitMQ👋
 
 <!--
-**Snoopy** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
-Here are some ideas to get you started:
-
+-->
+=======
+# Here are some ideas to get you started:
 - 🔭 Node.js ...
 - 🌱 Express ...
 - 👯 Websocket ...
@@ -14,7 +14,4 @@ Here are some ideas to get you started:
 - 📫 ... ...
 - 😄 ... ...
 - ⚡ F... ...
--->
-=======
-# Snoopy
 
