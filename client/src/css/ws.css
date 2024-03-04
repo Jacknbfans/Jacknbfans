@@ -3,43 +3,56 @@
     height: 90%;
     border: 10px solid #000;
     margin-left: 9%;
-    position: absolute;
+    margin-top: 2%;
+    position: relative;
     background: aliceblue;
     display: block;
 }
+
 .receive {
+    position: absolute;
+    width: 100%;
+    height: inherit;
 }
 
 .send{
     position: absolute;
-    margin-left: 40%;
-    bottom: 0;
+    bottom: 2%;
+    left: 20%;
 }
+
 #receive-box {
     text-align: center;
-    width: 500px;
-    height: 400px;
+    width: 50%;
+    height: 80%;
     overflow: auto;
-    margin: 3em auto auto auto;
+    margin: 1em auto auto auto;
 }
+
 #msg-need-send {
-    width: 300px;
-    height: 100px;
+    width: 80%;
+    height: 7em;
     resize: none;
     border-radius: 10px;
 }
+
 #send-btn {
     border: none;
     border-radius: 5px;
     background: #25d1ff;
-    padding: 5px 10px;
+    padding: 5px 5px;
     color: #fff;
     cursor: pointer;
 }
+
 #exit {
     border: 1px solid #ccc;
     border-radius: 5px;
     background: none;
     padding: 5px 10px;
     cursor: pointer;
+}
+
+.btns{
+    margin-left: 1em;
 }

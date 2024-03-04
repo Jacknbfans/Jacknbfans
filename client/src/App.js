@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
-import { useRoutes  , NavLink  } from 'react-router-dom';
+//import { useRoutes  , NavLink  } from 'react-router-dom';
+import { useRoutes  } from 'react-router-dom';
 import routes from './router';
 
 import './App.css';
@@ -8,10 +9,11 @@ import './css/AppMenu.css';
 const App = memo(() => {
   return (
     <div className='app'>
+    {/* 
       <div className='topHeader'>
         <NavLink to="/home" className="topMenu">Pasay</NavLink> 
       </div>
-  {/*     <div className='leftMenu'>
+      <div className='leftMenu'>
         <NavLink to="/home" className="navMenu">home</NavLink> 
         <NavLink to="/websocket" className="navMenu">websocket1.0</NavLink>
         <NavLink to="/rabbitmq" className="navMenu">rabbitmq</NavLink>
@@ -19,7 +21,8 @@ const App = memo(() => {
       </div>
       <div className='rightMain'>
         { useRoutes(routes) }
-      </div> */}
+      </div> 
+    */}
       <div className='footBody'>
         { useRoutes(routes) }
       </div>

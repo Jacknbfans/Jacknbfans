@@ -106,11 +106,11 @@ class Home extends Component {
                     </div>
                     <div className="send">
                     <textarea type="text" id="msg-need-send" defaultValue={"777"} />
-                    <p>
+                    <span className='btns'>
                         <button id="send-btn">send message</button> 
                         &nbsp; &nbsp; &nbsp;
                         <button id="exit">close connect</button>
-                    </p>
+                    </span>
                     </div>      
                 </div>
             </div>
