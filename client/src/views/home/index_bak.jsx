@@ -4,21 +4,46 @@ import '../../css/ws.css'
 
 const ws = new WebSocket('ws://104.128.95.54:3030/websockets/test');
 
+window.addEventListener('scroll', () => { 
+  var h = window.innerHeight;
+  var j = document.documentElement.scrollHeight;
+  var k = document.documentElement.scrollTop;
+  if ((h + k) >= j - 150) {
+      console.log('add scroll');
+  }
+});
+
+window.onload= function(){
+  console.log('onload');
+}
+
 class Home extends Component {
+  
     constructor(props) {
-      console.log('constructor');
       super(props);
       this.handleClick = this.handleClick.bind(this);
       this.state = { apiResponse: "" };
     }
+
+    callAPI() {
+        fetch("http://104.128.95.54:9000/testAPI")
+            .then(res => res.text())
+            .then(res => this.setState({ apiResponse: res }))
+            .then(err => err);
+    }
   
     componentDidMount() {
-        this.handleClick();
+        this.handleData();
+        this.callAPI();
+        console.log('componentDidMount');
+
         ws.onopen = e => {
-          console.log('WebSocket connect state ' + ws.readyState)
-        }      
+          console.log('WebSocket 连接状态： ' + ws.readyState)
+        }
+        
         ws.onmessage = data => {
           const receiveBox = document.getElementById('receive-box');
+
           if(receiveBox != null){
             receiveBox.innerHTML += '<p>' + data.data + '</p>'
             receiveBox.scrollTo({
@@ -27,36 +52,50 @@ class Home extends Component {
             })
           }
         }
-        document.getElementById('send-btn').addEventListener('click',this.sendClick);
-        document.getElementById('exit').addEventListener('click',this.exitClick);
+
+        document.getElementById('send-btn').addEventListener('click',this.startClick);
+        document.getElementById('exit').addEventListener('click',this.handleClick);
+
     }
 
-    async handleClick(){
-        const response = await axios.get('http://104.128.95.54:3030/producer'); // sennd GET request to special URL
-        if (response.status === 200) {
-          console.log('response:'+response.data); // return data is able to set state var value
-        } else {
-          console.error(`Error ${response.status}: ${response.statusText}`);
-        }
+    componentWillMount () {
+      console.log('componentWillMount');
+    }
+
+    componentWillUnmount () {
+      console.log('componentWillUnmount');
+    }
+
+
+    handleClick() {
+      ws.close();
+      console.log('handleClick close');
     } 
 
-    sendClick() {
-          console.log('send state:'+ws.state);
+    startClick() {
+
+        console.log('startState:'+ws.state);
+
           if(ws.readyState===1){
-            console.log('send ok')
+            console.log('1111111')
             const msgBox = document.getElementById('msg-need-send');
             ws.send(msgBox.value);
-            console.log('send message:'+msgBox.value);
+            console.log('startMsgBox:'+msgBox.value);
           }else{
-            console.log('send no');
+            console.log('2222222');
             window.location.reload();
           }
     } 
 
-    exitClick() {
-      ws.close();
-      console.log('handleClick close');
-    } 
+    async handleData(){
+		const response = await axios.get('http://104.128.95.54:3030/consumer'); // 发送GET请求到指定URL
+      
+		if (response.status === 200) {
+			console.log(response.data); // 将返回的数据设置为状态变量data的值
+		} else {
+			console.error(`Error ${response.status}: ${response.statusText}`);
+		}
+	}
 
     render(){
         return (
@@ -76,7 +115,7 @@ class Home extends Component {
                 </div>
             </div>
         );
+      }
     }
-}
 
 export default Home
