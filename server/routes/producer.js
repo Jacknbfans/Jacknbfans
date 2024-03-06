@@ -10,15 +10,15 @@ async function producer() {
     const routingKey = 'ctra.news';
     const msg = 'Producer';
     await channel.assertExchange(exchangeName,'direct', { durable : true });
-    for(let i = 0; i < 1000; i++){
+    for(let i = 0; i < 10000; i++){
       console.log(i);
       await channel.publish(
         exchangeName,
         routingKey,
-        Buffer.from(`${msg} 第${i}条消息`)
+        Buffer.from(`${msg} No${i}Messages`)
       );
     }
-    console.log("成功连接到 RabbitMQ_producer");
+    console.log("success connect RabbitMQ_producer");
     setTimeout(() => {
          channel.close();
           process.exit(0);
@@ -32,9 +32,9 @@ async function producer() {
 router.get('/', (req, res) => {
   try {
     producer();
-    res.send("成功连接到 producer");
+    res.send("success connect producer");
   } catch (error) {
-    res.send(`无法连接到 RabbitMQ_get: ${error}`);
+    res.send(`not able to connect to RabbitMQ_get: ${error}`);
   }
 });
 

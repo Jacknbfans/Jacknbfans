@@ -41,9 +41,7 @@ class Home extends Component {
     } 
 
     sendClick() {
-          console.log('send state:'+ws.state);
           if(ws.readyState===1){
-            console.log('send ok')
             const msgBox = document.getElementById('msg-need-send');
             ws.send(msgBox.value);
             console.log('send message:'+msgBox.value);

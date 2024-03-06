@@ -3,6 +3,7 @@ const expressWs = require('express-ws');
 const amqp = require('amqplib');
 const router = express.Router()
 expressWs(router);
+const arr = []; 
 
 async function consumer() {
   try{
@@ -18,12 +19,16 @@ async function consumer() {
     await channel.consume(
       queueName,
       (msg) => {
-        console.log('Consumer:',msg.content.toString());
+        //console.log('Consumer:',msg.content.toString());
+        arr.push(msg.content.toString());
+        arr.forEach((element) =>{
+          console.log(element);
+        }); 
         channel.ack(msg);
       },
       { noAck:false }
     );
-    console.log("sucess connect to RabbitMQ_Websockets_Consumer");
+    console.log("success connect to RabbitMQ_Websockets_Consumer");
   } catch (error){
     console.log(error);
   }
@@ -31,11 +36,14 @@ async function consumer() {
 
 router.ws('/test', (ws, req) => {
   try {
-      ws.send('connect sucess')
-      let interval
+      consumer();
+
+      ws.send('connect success');
+      let interval;
       interval = setInterval(() => {
         if (ws.readyState === ws.OPEN) {
-          ws.send(Math.random().toFixed(2))
+          //ws.send(Math.random().toFixed(2));
+          ws.send(arr[Math.floor(Math.random() * arr.length)]);
         } else {
           clearInterval(interval)
         }

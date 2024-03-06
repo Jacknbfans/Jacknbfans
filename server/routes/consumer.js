@@ -21,7 +21,7 @@ async function consumer() {
       },
       { noAck:false }
     );
-    console.log("成功连接到 RabbitMQ_consumer");
+    console.log("success connect to RabbitMQ_consumer");
   } catch (error){
     console.log(error);
   }
@@ -30,9 +30,9 @@ async function consumer() {
 router.get('/', async(req, res) => {
   try {
     consumer();
-    res.send("成功连接到 consumer");
+    res.send("success connect to consumer");
   } catch (error) {
-    res.send(`无法连接到 consumer_get: ${error}`);
+    res.send(`not able to connect to consumer_get: ${error}`);
   }
 });
 
