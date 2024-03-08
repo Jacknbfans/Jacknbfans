@@ -18,7 +18,7 @@ const amqp = require('amqplib');
 const amqpRouter = require('./routes/rabbitMQ');
 const producerRouter = require('./routes/producer');
 const consumerRouter = require('./routes/consumer');
-//const redisRouter = require('./routes/redisCache');
+const redisRouter = require('./routes/redisCache');
 expressWs(app);
 
 const rabbitExpress = require('rabbitmq-express');
@@ -50,7 +50,7 @@ app.use('/websockets', websocket)
 app.use('/rabbitMQ', amqpRouter);
 app.use('/producer', producerRouter);
 app.use('/consumer', consumerRouter);
-//app.use('/redisCache', redisRouter);
+app.use('/redisCache', redisRouter);
 
 app.listen(3030, () => {
   console.log('server is listening on port 3030')

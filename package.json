@@ -12,5 +12,8 @@
   "devDependencies": {
     "client": "^0.0.1",
     "server": "^1.0.38"
+  },
+  "dependencies": {
+    "ioredis": "^5.3.2"
   }
 }

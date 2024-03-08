@@ -15,9 +15,9 @@ const App = memo(() => {
       </div>
       <div className='leftMenu'>
         <NavLink to="/home" className="navMenu">home</NavLink> 
-        <NavLink to="/websocket" className="navMenu">websocket1.0</NavLink>
+        <NavLink to="/websockets" className="navMenu">websockets</NavLink>
         <NavLink to="/rabbitmq" className="navMenu">rabbitmq</NavLink>
-        <NavLink to="/redis" className="navMenu">redis</NavLink>
+        <NavLink to="/rediscache" className="navMenu">rediscache</NavLink>
       </div>
       <div className='rightMain'>
         { useRoutes(routes) }
