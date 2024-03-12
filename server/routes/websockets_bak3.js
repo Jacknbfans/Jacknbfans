@@ -5,7 +5,6 @@ const router = express.Router()
 expressWs(router);
 const arr = []; 
 const redis = require('redis');
-const hash = new Map();
 
 async function consumer() {
   try{
@@ -22,10 +21,9 @@ async function consumer() {
       queueName,
       (msg) => {
         arr.push(msg.content.toString());
-        hash.set(Math.random().toFixed(5),msg.content.toString());
-/*         arr.forEach((element) =>{
+        arr.forEach((element) =>{
           console.log(element);
-        });  */
+        }); 
         setCache(msg.content.toString());
         channel.ack(msg);
       },
@@ -47,36 +45,35 @@ async function setCache(values){
 
     const lists = await client.keys('*');
 
-    //console.log(lists);
+    console.log(lists);
 
-    //await client.hSet(['guangguang4', Math.random().toFixed(5), values],redis.print);
-    //await client.set(Math.random().toFixed(5),values);
-    //await client.hSet('guangguang5', 'field1', values,redis.print);
-   //await client.set('guangguang', arr);
-      
+    //await client.hSet('guangguang3', '333', values);
+    await client.set(Math.random().toFixed(5),values);
 
     await client.disconnect();
 }
 
-router.ws('/test', async(ws, req) => {
+async function getCache(){
+  const client = redis.createClient({ url:'redis://localhost:6379' }); 
+
+  client.on('error', err => console.log('Redis Client Error', err));
+
+  await client.connect();
+
+  await client.get(Math.random().toFixed(5),values);
+
+  await client.disconnect();
+}
+
+router.ws('/test', (ws, req) => {
   try {
-      consumer();     
+      consumer();
 
-      const client = redis.createClient({ url:'redis://localhost:6379' }); 
-    
-      client.on('error', err => console.log('Redis Client Error', err));
-    
-      await client.connect();
-    
-      const result = await client.hGet('guangguang4', '0.30599',redis.print);
-      console.log('result:'+result);
-      const result2 = await client.hGetAll('guangguang7');
-      console.log(result2);
-
+      ws.send('connect success');
       let interval;
       interval = setInterval(() => {
-        if (ws.readyState === ws.OPEN) {     
-          ws.send(result);
+        if (ws.readyState === ws.OPEN) {
+          ws.send(arr[Math.floor(Math.random() * arr.length)]);
         } else {
           clearInterval(interval)
         }
@@ -84,13 +81,9 @@ router.ws('/test', async(ws, req) => {
 
       ws.on('message', msg => {
         ws.send(msg)
-      }) 
-
-
-     await client.disconnect();
-
+      })
   } catch (error) {
-      ws.send(`not abele to connect to RabbitMQ_Websockets: ${error}`);
+      res.send(`not abele to connect to RabbitMQ_Websockets: ${error}`);
   }
 })
 
