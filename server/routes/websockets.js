@@ -6,6 +6,7 @@ expressWs(router);
 const arr = []; 
 const redis = require('redis');
 const hash = new Map();
+const hashList = {};
 
 async function consumer() {
   try{
@@ -22,7 +23,8 @@ async function consumer() {
       queueName,
       (msg) => {
         arr.push(msg.content.toString());
-        hash.set(Math.random().toFixed(5),msg.content.toString());
+        //hash.set(Math.random().toFixed(5),msg.content.toString());
+        hashList[Math.random().toFixed(5)] = msg.content.toString();
 /*         arr.forEach((element) =>{
           console.log(element);
         });  */
@@ -49,10 +51,19 @@ async function setCache(values){
 
     //console.log(lists);
 
+    //hashList[Math.random().toFixed(5)] = values;
+
+/*     for (const key in hashList) {
+      if (Object.hasOwnProperty.call(hashList, key)) {
+        const value = hashList[key];
+        console.log(key, value);
+      }
+    }  */
+
     //await client.hSet(['guangguang4', Math.random().toFixed(5), values],redis.print);
     //await client.set(Math.random().toFixed(5),values);
     //await client.hSet('guangguang5', 'field1', values,redis.print);
-   //await client.set('guangguang', arr);
+    //await client.set('guangguang8', hashList);
       
 
     await client.disconnect();
@@ -68,24 +79,29 @@ router.ws('/test', async(ws, req) => {
     
       await client.connect();
     
-      const result = await client.hGet('guangguang4', '0.30599',redis.print);
+      const result = await client.hGet('guangguang4', '0.77166',redis.print);
       console.log('result:'+result);
-      const result2 = await client.hGetAll('guangguang7');
-      console.log(result2);
+      const resultList = await client.hGetAll('guangguang6');
+      console.log(resultList);
+      for (const key in resultList) {
+        if (Object.hasOwnProperty.call(resultList, key)) {
+          const value = resultList[key];
+          //console.log(key, value);
 
-      let interval;
-      interval = setInterval(() => {
-        if (ws.readyState === ws.OPEN) {     
-          ws.send(result);
-        } else {
-          clearInterval(interval)
+          let interval;
+          interval = setInterval(() => {
+            if (ws.readyState === ws.OPEN) {     
+              ws.send(value);
+            } else {
+              clearInterval(interval)
+            }
+          }, 1000)
+    
+          ws.on('message', msg => {
+            ws.send(msg)
+          }) 
         }
-      }, 1000)
-
-      ws.on('message', msg => {
-        ws.send(msg)
-      }) 
-
+      } 
 
      await client.disconnect();
 
