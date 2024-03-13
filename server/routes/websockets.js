@@ -64,7 +64,7 @@ async function setCache(values){
     //await client.set(Math.random().toFixed(5),values);
     //await client.hSet('guangguang5', 'field1', values,redis.print);
     //await client.set('guangguang8', hashList);
-      
+    await client.hSet('msg-session', hashList,redis.print);
 
     await client.disconnect();
 }
@@ -79,9 +79,9 @@ router.ws('/test', async(ws, req) => {
     
       await client.connect();
     
-      const result = await client.hGet('guangguang4', '0.77166',redis.print);
-      console.log('result:'+result);
-      const resultList = await client.hGetAll('guangguang6');
+      //const result = await client.hGet('guangguang4', '0.77166',redis.print);
+      //console.log('result:'+result);
+      const resultList = await client.hGetAll('msg-session');
       console.log(resultList);
       for (const key in resultList) {
         if (Object.hasOwnProperty.call(resultList, key)) {
