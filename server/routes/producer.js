@@ -23,7 +23,7 @@ async function producer() {
          channel.close();
           process.exit(0);
           console.log('close');
-      }, 3600000);
+      }, 360000);
   } catch (error){
     console.log(error);
   }

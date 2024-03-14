@@ -104,6 +104,7 @@ router.post('/',async(request,response) => {
     try{
         const { productID } =  request.body;
 
+        //QPS
         let a = 1;
         setTimeout(() => {
             console.log(a);
