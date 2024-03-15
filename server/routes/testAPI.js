@@ -19,7 +19,6 @@ var stime = new Date();
 var arr = [];
 
 
-
 function nodeSleep(time) {
     return new Promise((resolve,reject)=>{
         setTimeout(() => {
@@ -35,6 +34,34 @@ function getUnseData() {
             resolve(data)
         });
     });
+}
+
+function add(num1,num2,callback){
+    var sum = num1 + num2;
+    callback(sum);
+}
+
+function say(content){
+    console.log(content);
+}
+
+function test(callback){
+    content = 'hello nodejs';
+    callback(content);
+}
+
+function color(){
+    return new Promise((resolve,reject)=>{
+        let sino = parseInt(Math.random()*6+1);
+        setTimeout(()=>{
+            resolve(sino);
+        },3000);
+    });
+}
+
+async function testColor(){
+    let n = await color();
+    console.log(n);
 }
 
 router.post('/',async(request,response) => {
@@ -54,9 +81,13 @@ router.post('/',async(request,response) => {
 
         setTimeout(() => {
             fs.readFile('txt/test.txt',(err,data) => {
-              console.log('NO1 :'+data);
+                if(err) return console.error(err);
+                console.log('NO1 :'+data);
             }) 
+            console.log('end 1000');
         },1000);
+        
+
 
 
         let sleepTime = 3000;
@@ -66,9 +97,15 @@ router.post('/',async(request,response) => {
 
 
         setInterval(() => {
-            console.log(555555);
+            add(1,2,function(sum){
+                console.log(sum);
+                test(say);
+            });
         }, 5000);
+        console.log('end 5000');
 
+
+        testColor(); 
 
 
         //模拟一组连接地址
@@ -103,21 +140,6 @@ router.post('/',async(request,response) => {
             console.log(result);
         });
 
-
-
-        if (response.statusCode != '200') {
-          callback({message:"抓取失败,状态码:"+response.statusCode,url:url});
-          return;
-        }
-        response.on('data',(chunk)=>{
-          chunks.push(chunk);
-        });
-        response.on('end',()=>{
-          callback(null,Buffer.concat(chunks).toString());
-        });
-        response.on('error',(e)=>{
-          callback({message:"抓取失败",url:url,err:e});
-        });
 
 
 
