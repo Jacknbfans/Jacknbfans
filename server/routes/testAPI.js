@@ -1,87 +1,24 @@
 var express = require('express');
 var router = express.Router();
 
-const net = require('net');
-const fs = require('fs');
-
 const cluster = require('cluster');
-const http = require('http');
 const numCPUs = require('os').cpus().length;
 
 
+var http = require('http');
+var cheerio = require('cheerio');
+var URL = require('url');
+var path = require('path');
+var fs = require('fs');
+var async = require('async');
 
-/* const fs = require('fs');
-const asyncHooks = require('async_hooks');
+var baseUrl = "http://cnodejs.org/";
+var targetUrl = "http://cnodejs.org/";
+var stime = new Date();
 
-let indent = 0;
-const asyncHook = asyncHooks.createHook({
-  init(asyncId, type, triggerAsyncId, resource) {
-    const eid = asyncHooks.executionAsyncId();
-    const indentStr = ' '.repeat(indent);
-    fs.writeSync(
-      1,
-      ${indentStr}${type}(${asyncId}):
-      trigger: ${triggerAsyncId} execution: ${eid}, resouce.keys: ${Object.keys(resource)}\n);
-  },
-  before(asyncId) {
-    const indentStr = ' '.repeat(indent);
-    fs.writeSync(1, ${indentStr}before:  ${asyncId}\n);
-    indent += 2;
-  },
-  after(asyncId) {
-    indent -= 2;
-    const indentStr = ' '.repeat(indent);
-    fs.writeSync(1, ${indentStr}after:  ${asyncId}\n);
-  },
-  destroy(asyncId) {
-    const indentStr = ' '.repeat(indent);
-    fs.writeSync(1, ${indentStr}destroy:  ${asyncId}\n);
-  },
-});
+var arr = [];
 
-asyncHook.enable();
 
-Promise.resolve('ok').then(() => {
-  setTimeout(() => {
-    console.log('>>>', asyncHooks.executionAsyncId());
-  }, 10);
-}); */
-
-/* router.get('/', async(req, res)=> {
-
-    try{
-        const delay = util.promisify(setTimeout);
-        const tasks = [];
-    
-        for (let i = 0; i < 1000000; i++) {
-            tasks.push(delay(10000));
-        }
-    
-        await Promise.all(tasks); 
-
-        const fns = [
-            fetchSomething1,
-            fetchSomething2,
-            fetchSomething3,
-          ];
-          
-          const limit = pLimit(10);
-          Promise.all(
-            fns
-              .map(fn =>
-                limit(async () => {
-                  await fn() // fetch1/2/3
-                })
-              ) // map
-          ); // Promise.all 
-    
-        res.send('Kevin:88-23');
-
-    }catch (error) {
-        res.send(`not abele to connect to RabbitMQ_Websockets: ${error}`);
-    }
-
-});*/
 
 function nodeSleep(time) {
     return new Promise((resolve,reject)=>{
@@ -103,55 +40,90 @@ function getUnseData() {
 router.post('/',async(request,response) => {
     try{
         const { productID } =  request.body;
-
+        //million 
         //QPS
-        let a = 1;
+        //Callback
+        //I/O intensive
+        //CPU intensive
+
         setTimeout(() => {
-            console.log(a);
+            if (cluster.isMaster) {
+              console.log(`main process ${process.pid} running`);
+            } 
         },0);
-        a = 2;
+
         setTimeout(() => {
-            console.log(a);
-        }, 0);
-        a = 3;
+            fs.readFile('txt/test.txt',(err,data) => {
+              console.log('NO1 :'+data);
+            }) 
+        },1000);
+
 
         let sleepTime = 3000;
         await nodeSleep(sleepTime);
         let unuseData = await getUnseData();
+        console.log('NO2:'+unuseData);
 
-        response.end(`Node Stop The World ${sleepTime}s,unseDate:${unuseData}`);  
-/* 
-        fs.readFile('txt/test.txt',(err,data) => {
-            console.log(data);
-            response.writeHead(200);
-            response.end(`txt is ${data}`);
-        }) */
 
-/*         if (cluster.isMaster) {
-            console.log(`主进程 ${process.pid} 正在运行`);
-          
-            // 衍生工作进程。
-            for (let i = 0; i < 1; i++) {
-              cluster.fork();
-            }
-          
-            cluster.on('exit', (worker, code, signal) => {
-              console.log(`工作进程 ${worker.process.pid} 已退出`);
-            });
-          } else {
-            // 工作进程可以共享任何 TCP 连接。
-            // 在本例子中，共享的是一个 HTTP 服务器。
-            response.writeHead(200);
-            response.end('你好世界\n');
-
-            console.log(`工作进程 ${process.pid} 已启动`);
-          } */
-          
+        setInterval(() => {
+            console.log(555555);
+        }, 5000);
 
 
 
+        //模拟一组连接地址
+        var urls = [];
+        for(var i = 0; i < 30; i++) {
+            urls.push(arr + i);
+        }
+        console.log(urls);
+        
+        // 并发连接数的计数器
+        var concurrencyCount = 0;
+        
+        // 并发抓取数据的过程
+        var fetchUrl = function (url, callback) {
+            // delay 的值在 2000 以内，是个随机的整数
+            var delay = parseInt((Math.random() * 10000000) % 2000, 10);
+            concurrencyCount++;
+            console.log('现在的并发数是', concurrencyCount, '，正在抓取的是', url, '，耗时' + delay + '毫秒');
+            setTimeout(function () {
+                concurrencyCount--;
+                //抓取成功，调用回调函数
+                callback(null, url + ' html content');
+            }, delay);
+        };
+        
+        //使用 async.mapLimit 来 5 个并发抓取，并获取结果
+        async.mapLimit(urls, 5, function (url, callback) {
+            fetchUrl(url, callback);
+        }, function (err, result) {
+            //所有连接抓取成功，返回回调结果列表
+            console.log('final:');
+            console.log(result);
+        });
 
-        //response.status(200).json({ Kevin: '88-23' }); 
+
+
+        if (response.statusCode != '200') {
+          callback({message:"抓取失败,状态码:"+response.statusCode,url:url});
+          return;
+        }
+        response.on('data',(chunk)=>{
+          chunks.push(chunk);
+        });
+        response.on('end',()=>{
+          callback(null,Buffer.concat(chunks).toString());
+        });
+        response.on('error',(e)=>{
+          callback({message:"抓取失败",url:url,err:e});
+        });
+
+
+
+
+
+        response.status(200).json({ Kevin: '88888888' }); 
 
     }catch(error){
         response.status(500).json({ error: 'testAPI error' });
