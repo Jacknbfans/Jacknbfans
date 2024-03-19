@@ -19,6 +19,7 @@ const amqpRouter = require('./routes/rabbitMQ');
 const producerRouter = require('./routes/producer');
 const consumerRouter = require('./routes/consumer');
 const redisRouter = require('./routes/redisCache');
+const childSubRouter = require('./routes/childSub');
 expressWs(app);
 
 const rabbitExpress = require('rabbitmq-express');
@@ -43,29 +44,17 @@ app.use('/users', usersRouter);
 //
 app.use('/testAPI', testAPIRouter);
 
-//app.use(express.static('public'))
-app.use('/websockets', websocket)
-//app.get('*', (req, res) => {})
+app.use('/websockets', websocket);
 
 app.use('/rabbitMQ', amqpRouter);
 app.use('/producer', producerRouter);
 app.use('/consumer', consumerRouter);
 app.use('/redisCache', redisRouter);
+app.use('/childSub', childSubRouter);
 
 app.listen(3030, () => {
   console.log('server is listening on port 3030')
 }) 
-
-/* var RabbitMQ = require("rabbitmq").createConnect("amqp://rabbit-mq-host").RabbitMQ;
- 
-    var testQueue = new RabbitMQ("test.queue");
- 
-    testQueue.subscribe(function(message){
-        console.log(message);
-    }, function(){
-        testQueue.publish({test: "test"});
-    }); */
-
 
 
 // catch 404 and forward to error handler

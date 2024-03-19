@@ -10,6 +10,7 @@
     "@stomp/stompjs": "^7.0.0",
     "amqplib": "^0.10.3",
     "cheerio": "^1.0.0-rc.12",
+    "child_process": "^1.0.2",
     "co": "^4.6.0",
     "concurrently": "^8.2.2",
     "cookie-parser": "~1.4.6",

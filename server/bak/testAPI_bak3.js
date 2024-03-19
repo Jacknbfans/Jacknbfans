@@ -66,14 +66,12 @@ async function testColor(){
 
 router.post('/',async(request,response) => {
     try{
-
-
-
-        //QPS : one hundred thousand
-        //I/O intensive & CPU intensive
-        //Start multiple processes : child_process
-        //polling
-
+        const { productID } =  request.body;
+        //million 
+        //QPS
+        //Callback
+        //I/O intensive
+        //CPU intensive
 
         setTimeout(() => {
             if (cluster.isMaster) {
