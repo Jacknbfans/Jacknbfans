@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+const crypto = require('crypto');
+const hash = crypto.createHash('sha256');
+
 const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
 
@@ -67,7 +70,9 @@ async function testColor(){
 router.post('/',async(request,response) => {
     try{
 
-
+        //sha256WithRSA
+        hash.update('create Hash digest');
+        console.log(hash.digest('hex'));
 
         //QPS : one hundred thousand
         //I/O intensive & CPU intensive
