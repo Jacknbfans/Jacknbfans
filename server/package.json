@@ -21,6 +21,7 @@
     "express-ws": "^5.0.2",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
+    "jsrsasign": "^11.1.0",
     "morgan": "~1.9.1",
     "rabbitmq-express": "^1.0.4",
     "redis": "^4.6.13",
