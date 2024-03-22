@@ -2,8 +2,11 @@ var express = require('express');
 var router = express.Router();
 
 const crypto = require('crypto');
-const hash = crypto.createHash('sha256');
 var rs = require('jsrsasign');
+const NodeRSA = require('node-rsa');
+const keyRSA = new NodeRSA({ b: 512 });
+const publicKey = keyRSA.exportKey('public');
+const privateKey = keyRSA.exportKey('private');
 
 const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
@@ -71,6 +74,22 @@ async function testColor(){
 router.post('/',async(request,response) => {
     try{
 
+        //1.Method
+        //node-rsa
+        console.log('Public Key:'+publicKey);
+        console.log('Private Key:'+privateKey);
+        const publicKeys = '-----BEGIN PUBLIC KEY-----666-----END PUBLIC KEY-----';
+        const privateKeys = '-----BEGIN PRIVATE KEY-----222-----END PRIVATE KEY-----';
+        //use public key encryption
+/*         const encrypt = new NodeRSA(publicKeys);
+        const encryptedData = encrypt.encrypt('hello kevin','base64');
+        console.log('Encrypted Data:',encryptedData);
+        //use private key Decrypt
+        const decrypt = new NodeRSA(privateKeys);
+        const decryptedData = decrypt.decrypt(encryptedData,'utf8');
+        console.log('Decrypted Data:',decryptedData); */
+
+        //2.Method
         //sha256WithRSA
         const privateKeysString = '-----BEGIN PRIVATE KEY-----MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDl3qqZiBYqv9qT55lohRxVJIbYOYHiGelaN5PaRpecOjOyOl03ZcgNsLLc9HfYrWXo7TyBGg+dYz2LoauNPOrHxG7mxmBD1V7faTEjiYfwEqyZ4zpWHP+IHOwZaUE26HGVjVm7z1akmnb7bC9fViXpjqH9Hj3+/s5omTBb992nCUDu9sXzHaQcE2WquTlkOuCvf/YtxhBZCaQEvmP34GiYzR+Veihgs90KTKEqJyd0Hd72AK2xwJ2JfN3Idz2Z+3RqVlWXm1SgZPf98XNHJjq2gLMClpAMMR8sLvEljij+Rv6JZXEx2UuiSslVBYHJGsi6a5mHIGGucv9C+9y+BGOFAgMBAAECggEBALrVP04oqPO4Gh1LCYpFXqDpXlxSaXnvW5ZDQ/4OkF2fhLMg8vD63h4ad1ZVsS9AyGsIn7vDBdwDdFuQXNIgKCeURht2M3oO69ykMBdVSlLbqsQtRxYE3cCw2UlSHnpVdTR7veqDfEWvcnOqG9reN1Rc5NbJhNREIFot4HtvvA1tUqeWjgUN9Gb6hpBdJKmUfaXlBZvYysHkjsbPgDGtGljnnCHXZepGGKAJjWCh/JKzJgcVeLEMKCqvd9KvJp1Ny3pdx0dQN1A2xF+CG/TaXmOt/WhrGk6k4YQ4hW60S4VaPBum0HJapAkaR/LxjbP4DKEF2hHLiX/P/f9b/nHIcWUCgYEA9VRsfZ9xD6gEsPClEVwSTrzb8CD8kelt+PM/xdnmRjYwZ07vZO1qHXD/54yXxbx35UXJKzW6+hknWqKHmanLNd22xifbDWwz2gDUlAmHCPbz+ZfHG0wDOOo9EhcrOKXa6z1HBd6ufgnfC7WRV0w/w3nkaVj3kDXpZAhXaN8nDJ8CgYEA794bPMyXuEIZgxJxXkEVpKB1yGxsknzu/HrV4nKYMXTrGa+M04/CNfM/XgR3/q1jkBcdfvu0AgQyTR+bU+M/sRlYi0iiAwsenbm4lpk6HmAHccqyYFwzG7zvNKZKUlEjMgDWn0z7QrCAiTK8P2pNBS37+40/Yr1MkQno6ip8uVsCgYEA8t7RSMw/sbA0dLbHs5fix/BQDDmb0Re2t26ZA9XkEj4zTRLoDJK9Kshjj2ewGSGr0F51+UEICfA89Y1RkN53Pqxv9Vwfj/o+muOXj7ae6FES11Va17s4tW+vZelp8HrBb4EKftUlCcHb/kuRx0rFFU/mwCRDcZDtrQpU/o1sqyECgYEA4Y9/FYFe+spNq0/gg724WIL7v2kV//qz0YDBOJyCOZ+0pQbL6vY4rvr7D7IsFLV/9rOF7S9Masj/dD7QleYQsr0e4nt+vlXqiG9pAVU9reqnlX4Cl1KcTO0yE9R790SNUCwxpsOBU4keleW71/ZiTwia+EYu4O8Z3RnwiKNDfhkCgYAbD04vFYQCijFls+omWIFvp9CpRlNBDmxc4Ya4QanJoDTVdgr8r/GJv8Zqc/WpMIk5rb5scUyZbtc61JoVdcyLpezQdAzGvZDIFo4IvcGiglLYEztT9YM7YNUBfmPstepH+CNs8eRdufO5mxLjMHDrC6b7s1Lr3JcLJfPIUh0jkg==-----END PRIVATE KEY-----';
         const key = rs.KEYUTIL.getKey(privateKeysString);
@@ -79,13 +98,30 @@ router.post('/',async(request,response) => {
         //init
         signature.init(key);
         signature.updateString('create Hash digest');
-        //hash.update('create Hash digest');
-        //console.log(hash.digest('hex'));
         //create ciphertext
         const originSign = signature.sign();
         console.log(rs.hextob64(originSign));
 
-
+        //3.Method
+        // read private.key
+        const privateKey = fs.readFileSync('../../api/private.key', 'utf8');       
+        // create decrypte private.key
+        const decryptKey = crypto.createPrivateKey(privateKey);     
+        // example data
+        const data = "hello kevin 323";
+        // SHA256 hash
+        const hash = crypto.createHash('sha256');
+        hash.update(data);
+        const digest = hash.digest('hex');
+        console.log('SHA256 result:', digest);
+        // RSA decrypt
+        const encryptedData = Buffer.from(digest, 'base64'); 
+        const decryptedData = decryptKey.decrypt({
+            padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
+            oaepHash: "sha256",
+            input: encryptedData
+        });
+        console.log('decryptedData:', decryptedData.toString());
 
         //QPS : one hundred thousand
         //I/O intensive & CPU intensive
@@ -173,6 +209,7 @@ router.post('/',async(request,response) => {
 });
 
 module.exports = router; 
+
 
 
 
