@@ -7,33 +7,51 @@ const arr = [];
 const redis = require('redis');
 const hash = new Map();
 const hashList = {};
+const crypto = require('crypto');
+var rs = require('jsrsasign');
+const fs = require('fs');
+const path = require('path');
+let privatePath = path.resolve(__dirname,'../../api/rsa_private.key');
+let publicPath = path.resolve(__dirname,'../../api/rsa_pub.key');
+let pkP8Path = path.resolve(__dirname,'../../api/eckey.p8');
+let pkPemPath = path.resolve(__dirname,'../../api/eckey.pem');
 
 async function consumer() {
   try{
-    const connection = await amqp.connect('amqp://104.128.95.54:5672');
-    const channel =  await connection.createChannel();
-    const exchangeName = 'exchange.direct';
-    const queueName = 'ctra.news';
-    const bindingKey = 'ctra.news';
-    await channel.assertExchange(exchangeName,'direct', { durable : true });
-    await channel.assertQueue(queueName);
-    await channel.bindQueue(queueName,exchangeName,bindingKey);
-    await channel.prefetch(1,false);
-    await channel.consume(
-      queueName,
-      (msg) => {
-        arr.push(msg.content.toString());
-        //hash.set(Math.random().toFixed(5),msg.content.toString());
-        hashList[Math.random().toFixed(5)] = msg.content.toString();
-/*         arr.forEach((element) =>{
-          console.log(element);
-        });  */
-        setCache(msg.content.toString());
-        channel.ack(msg);
-      },
-      { noAck:false }
-    );
-    console.log("success connect to RabbitMQ_Websockets_Consumer");
+      //verify
+      const publicKey = fs.readFileSync(publicPath).toString();
+      let ver = new rs.KJUR.crypto.Signature({ alg: "SHA256withRSA"});
+      ver.init(publicKey);
+      ver.updateString('digest');
+
+
+      const connection = await amqp.connect('amqp://104.128.95.54:5672');
+      const channel =  await connection.createChannel();
+      const exchangeName = 'exchange.direct';
+      const queueName = 'ctra.news';
+      const bindingKey = 'ctra.news';
+      await channel.assertExchange(exchangeName,'direct', { durable : true });
+      await channel.assertQueue(queueName);
+      await channel.bindQueue(queueName,exchangeName,bindingKey);
+      await channel.prefetch(1,false);
+      await channel.consume(
+        queueName,
+        (msg) => {
+          arr.push(msg.content.toString());
+          //hash.set(Math.random().toFixed(5),msg.content.toString());
+          hashList[Math.random().toFixed(5)] = msg.content.toString();
+  /*         arr.forEach((element) =>{
+            console.log(element);
+          });  */
+          setCache(msg.content.toString());
+          //console.log(ver.verify(rs.KJUR.crypto.Base64.parseHEX(msg.content.toString()))); 
+          console.log(ver.verify(msg.content.toString())); 
+          channel.ack(msg);
+        },
+        { noAck:false }
+      );
+      console.log("success connect to RabbitMQ_Websockets_Consumer");
+
   } catch (error){
     console.log(error);
   }
@@ -72,6 +90,24 @@ async function setCache(values){
 
 router.ws('/test', async(ws, req) => {
   try {
+      //sha256WithRSA create signature object ,setup sign code alg
+/*       var pkP8 = fs.readFileSync(pkP8Path).toString();
+      var hex1 = "0100000012";
+      var hex2 = "5a81483d96b0bc15ad19af7f5a662e14b275729fbc05579b18513e7f550016b1";
+      var sig = new rs.KJUR.crypto.Signature({"alg": "SHA256withECDSA"});
+      sig.init(pkP8); 
+      sig.updateHex(hex1);
+      sig.updateHex(hex2);
+      var sigValueHex = sig.sign(); */
+      //sign
+/*       const privateKey = fs.readFileSync(privatePath).toString();
+      const key = rs.KEYUTIL.getKey(privateKey);
+      const signature = new rs.KJUR.crypto.Signature({ alg: "SHA256withRSA" });
+      signature.init(key);
+      signature.updateString('hashDigest');
+      var sig = signature.sign(); */
+
+
       consumer();     
 
       const client = redis.createClient({ url:'redis://localhost:6379' }); 
