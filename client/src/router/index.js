@@ -5,6 +5,7 @@ const Home = React.lazy(() => import("../views/home/index"))
 const Websockets = React.lazy(() => import("../views/websockets/index"))
 const Rabbitmq = React.lazy(() => import("../views/rabbitmq/index"))
 const Rediscache = React.lazy(() => import("../views/rediscache/index"))
+const Qps = React.lazy(() => import("../views/qps/index"))
 
 const routes = [
     {
@@ -26,6 +27,10 @@ const routes = [
     {
         path: "/rediscache",
         element:<Rediscache/>
+    },
+    {
+        path: "/qps",
+        element:<Qps/>
     }
 ]
 
