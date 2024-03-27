@@ -1,21 +1,16 @@
 //
 //  ContentView.swift
-//  kevin001
+//  kevin005
 //
-//  Created by 侯羽 on 2023/8/23.
+//  Created by 侯羽 on 2024/3/26.
 //
 
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
             Text("Hello, kevin!")
-        }
-        .padding()
+                .padding()
     }
 }
 
