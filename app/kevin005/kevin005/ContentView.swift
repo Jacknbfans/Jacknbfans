@@ -26,6 +26,7 @@ struct ContentView: View {
                 }
             }
             Text(me.bio).font(.title3).lineSpacing(10)
+            Text(me[keyPath: \.location])
             
             Text("Contact Me")
                 .foregroundColor(.white)
@@ -34,7 +35,36 @@ struct ContentView: View {
                 .frame(maxWidth: .infinity)
                 .background(RoundedRectangle(cornerRadius: 20).foregroundColor(.brown))
             
+            Text("skill")
+                .bold().font(.title3)
+                .frame(maxWidth: .infinity, alignment: .leading)
             
+            HStack{
+                ForEach(me.skills, id: \.self){ skill in
+                    VStack{
+                        Image(skill.lowercased())
+                            .resizable().aspectRatio(contentMode: .fit)
+                            .frame(width: 50)
+                        Text(skill)
+                    }.frame(width: 100)
+                }
+            }
+            
+            Text("Experience")
+                .bold().font(.title2)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            VStack(spacing: 8){
+                ForEach(me.experiences, id: \.title ){ exp in
+                    Group{
+                        Text("\(exp.start) - \(exp.end)")
+                            .foregroundColor(.secondary)
+                        Text(exp.title).bold()
+                        Text(exp.company)
+                    }.frame(maxWidth: .infinity, alignment: .leading)
+                }
+            }
+        
             
         }.padding()
     }
