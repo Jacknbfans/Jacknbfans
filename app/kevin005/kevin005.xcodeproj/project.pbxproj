@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB44EEE72BB6894D000B270D /* DotLineShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44EEE62BB6894D000B270D /* DotLineShape.swift */; };
 		DB85D3842BB2B21600DC96E5 /* kevin005App.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB85D3832BB2B21600DC96E5 /* kevin005App.swift */; };
 		DB85D3862BB2B21600DC96E5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB85D3852BB2B21600DC96E5 /* ContentView.swift */; };
 		DB85D3882BB2B21800DC96E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB85D3872BB2B21800DC96E5 /* Assets.xcassets */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DB44EEE62BB6894D000B270D /* DotLineShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotLineShape.swift; sourceTree = "<group>"; };
 		DB85D3802BB2B21600DC96E5 /* kevin005.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kevin005.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB85D3832BB2B21600DC96E5 /* kevin005App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = kevin005App.swift; sourceTree = "<group>"; };
 		DB85D3852BB2B21600DC96E5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 				DB85D3832BB2B21600DC96E5 /* kevin005App.swift */,
 				DB85D3872BB2B21800DC96E5 /* Assets.xcassets */,
 				DB85D3892BB2B21800DC96E5 /* Preview Content */,
+				DB44EEE62BB6894D000B270D /* DotLineShape.swift */,
 			);
 			path = kevin005;
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB85D3862BB2B21600DC96E5 /* ContentView.swift in Sources */,
+				DB44EEE72BB6894D000B270D /* DotLineShape.swift in Sources */,
 				DB85D3842BB2B21600DC96E5 /* kevin005App.swift in Sources */,
 				DB85D3942BB2BFB900DC96E5 /* Constant.swift in Sources */,
 			);

@@ -15,7 +15,7 @@ struct Resume {
     let title    = "swift developer"
     let location = "location:tokyo"
     let bio      = "Jane chao swift code is ai"
-    let skills   = ["pyton","swift","mysql","xd"]
+    let skills   = ["python","swift","mysql","xd"]
     let experiences: [Experience] = [("swift content creator",
                                       "kevin",
                                       "2024.3",
