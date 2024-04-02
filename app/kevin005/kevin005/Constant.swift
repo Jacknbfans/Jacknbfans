@@ -32,5 +32,5 @@ struct Resume {
     let socialMedia: [(name: String, url: String)] =
                                        [("linkedIn","https://www.linkedin.com/in/yu-hou-snoopy9527/"),
                                         ("wechat","Jacky3k"),
-                                        ("email","vc3island@hotmail.com")]
+                                        ("youtube","vc3island@hotmail.com")]
 }

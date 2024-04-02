@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     let me = Resume.shared
+    @State var isShowingContact = false
+    
     var body: some View {
         ScrollView{
             VStack(spacing:30){
@@ -27,14 +29,17 @@ struct ContentView: View {
                     }
                 }
                 Text(me.bio).font(.title3).lineSpacing(10)
-                Text(me[keyPath: \.location])
                 
-                Text("Contact Me")
-                    .foregroundColor(.white)
-                    .font(.title2.weight(.medium))
-                    .padding(.vertical,10)
-                    .frame(maxWidth: .infinity)
-                    .background(RoundedRectangle(cornerRadius: 20).foregroundColor(.brown))
+                Button{
+                    isShowingContact = true
+                } label: {
+                    Text("Connect Me")
+                        .foregroundColor(.white)
+                        .font(.title2.weight(.medium))
+                        .padding(.vertical,10)
+                        .frame(maxWidth: .infinity)
+                        .background(RoundedRectangle(cornerRadius: 20).foregroundColor(.brown))
+                }
                 
                 Text("skill")
                     .bold().font(.title3)
@@ -82,8 +87,15 @@ struct ContentView: View {
             
                 
             }.padding()
-                //.background(Circle())
-        }
+                .overlay(alignment: .top) {
+                    Group{
+                        if(isShowingContact){
+                            ContactView(isShowing: $isShowingContact)
+                                .offset(y:UIScreen.main.bounds.maxY * 0.37)
+                        }
+                    }.animation(.spring(),value:isShowingContact)
+                }
+        }.background(Color(uiColor: .secondarySystemBackground))
     }
 }
 
