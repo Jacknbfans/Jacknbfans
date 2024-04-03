@@ -19,11 +19,15 @@ struct ContactView: View {
                     .padding(10)
                     .background(RoundedRectangle(cornerRadius: 10).foregroundColor(.brown))
                     .padding(10)
+                    .onTapGesture{ openUrl(Resume.shared.phoneurl) }
                 
                 ForEach(Resume.shared.socialMedia,id: \.name){ media in
                     Image(media.name.lowercased())
                         .resizable().aspectRatio(contentMode: .fit)
                         .padding(10)
+                        .onTapGesture {
+                            openUrl(media.url)
+                        }
                 }
             }
             Text("Cancel")
@@ -34,8 +38,18 @@ struct ContactView: View {
                 }
         }
         .padding()
-        .background(RoundedRectangle(cornerRadius: 20).foregroundColor(.white))
+        .background(RoundedRectangle(cornerRadius: 20).foregroundColor(Color(uiColor:.tertiarySystemBackground)))
         .padding()
+    }
+    
+    func openUrl(_ url: String){
+        let url = URL(string: url)!
+        
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }else{
+            print("can not open")
+        }
     }
 }
 

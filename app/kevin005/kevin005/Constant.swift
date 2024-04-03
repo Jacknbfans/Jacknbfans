@@ -31,6 +31,6 @@ struct Resume {
     let phoneurl = "tel://818090913047"
     let socialMedia: [(name: String, url: String)] =
                                        [("linkedIn","https://www.linkedin.com/in/yu-hou-snoopy9527/"),
-                                        ("wechat","Jacky3k"),
-                                        ("youtube","vc3island@hotmail.com")]
+                                        ("wechat","https://github.com/Jacknbfans/Jacknbfans"),
+                                        ("youtube","https://www.upwork.com/freelancers/~01c0c3594dd96226d6?viewMode=1")]
 }

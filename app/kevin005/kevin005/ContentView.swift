@@ -14,20 +14,8 @@ struct ContentView: View {
     var body: some View {
         ScrollView{
             VStack(spacing:30){
-                HStack{
-                    Image("avatar")
-                        .resizable().aspectRatio(contentMode: .fit)
-                        .clipShape(Circle())
-                        .frame(width:200)
-                    
-                    VStack(spacing:20){
-                        Text(me.name)
-                            .font(.title).bold()
-                        Text(me.title)
-                        Label(me.location,systemImage: "eraser.fill").foregroundColor(.secondary)
-                        
-                    }
-                }
+                cardView
+                
                 Text(me.bio).font(.title3).lineSpacing(10)
                 
                 Button{
@@ -45,57 +33,88 @@ struct ContentView: View {
                     .bold().font(.title3)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                HStack{
-                    ForEach(me.skills, id: \.self){ skill in
-                        VStack{
-                            Image(skill.lowercased())
-                                .resizable().aspectRatio(contentMode: .fit)
-                                .frame(width: 50)
-                            Text(skill)
-                        }.frame(width: 80)
-                    }
-                }
+                skillView
                 
                 Text("Experience")
                     .bold().font(.title2)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                VStack(spacing: 0){
-                    ForEach(me.experiences.indices, id: \.self ){ index in
-                        
-                        HStack{
-                            
-                            DotLineShape(lineWidth: 2,
-                                         dotSize: 10,
-                                         style: index == 0 ? .bottomHalf : index == me.experiences.count - 1 ? .topHalf : .full)
-                                .frame(width: 70)
+                exerienceView
+            }
+            .padding()
+            .overlay(Color.black.opacity(isShowingContact ? 0.5 : 0)
+                .onTapGesture{ isShowingContact = false }
+            )
+            .overlay(alignment: .top) { contactView }
+            .animation(.spring(),value:isShowingContact)
+        }.background(Color(uiColor: .secondarySystemBackground))
+    }
+    
+    var cardView: some View {
+        HStack{
+            Image("avatar")
+                .resizable().aspectRatio(contentMode: .fit)
+                .clipShape(Circle())
+                .frame(width:200)
+            
+            VStack(spacing:20){
+                Text(me.name)
+                    .font(.title).bold()
+                Text(me.title)
+                Label(me.location,systemImage: "eraser.fill").foregroundColor(.secondary)
+                
+            }
+        }
+    }
+    
+    var skillView: some View {
+        HStack{
+            ForEach(me.skills, id: \.self){ skill in
+                VStack{
+                    Image(skill.lowercased())
+                        .resizable().aspectRatio(contentMode: .fit)
+                        .frame(width: 50)
+                    Text(skill)
+                }.frame(width: 80)
+            }
+        }
+    }
+    
+    var exerienceView: some View{
+        VStack(spacing: 0){
+            ForEach(me.experiences.indices, id: \.self ){ index in
+                
+                HStack{
+                    
+                    DotLineShape(lineWidth: 2,
+                                 dotSize: 10,
+                                 style: index == 0 ? .bottomHalf : index == me.experiences.count - 1 ? .topHalf : .full)
+                        .frame(width: 70)
+                        .foregroundColor(.secondary)
+                    
+                    let exp = me.experiences[index]
+                    
+                    VStack(spacing: 8){
+                        Group{
+                            Text("\(exp.start) - \(exp.end)")
                                 .foregroundColor(.secondary)
-                            
-                            let exp = me.experiences[index]
-                            
-                            VStack(spacing: 8){
-                                Group{
-                                    Text("\(exp.start) - \(exp.end)")
-                                        .foregroundColor(.secondary)
-                                    Text(exp.title).bold()
-                                    Text(exp.company).padding(.bottom,30)
-                                }.frame(maxWidth: .infinity, alignment: .leading)
-                            }
-                        }
+                            Text(exp.title).bold()
+                            Text(exp.company).padding(.bottom,30)
+                        }.frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }
-            
-                
-            }.padding()
-                .overlay(alignment: .top) {
-                    Group{
-                        if(isShowingContact){
-                            ContactView(isShowing: $isShowingContact)
-                                .offset(y:UIScreen.main.bounds.maxY * 0.37)
-                        }
-                    }.animation(.spring(),value:isShowingContact)
-                }
-        }.background(Color(uiColor: .secondarySystemBackground))
+            }
+        }
+    }
+    
+    var contactView: some View{
+        Group{
+            if(isShowingContact){
+                ContactView(isShowing: $isShowingContact)
+                    .offset(y:UIScreen.main.bounds.maxY * 0.37)
+                    .transition(.slide)
+            }
+        }
     }
 }
 
