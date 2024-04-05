@@ -18,29 +18,50 @@ struct ContentView: View {
                 .aspectRatio(contentMode: .fit)
 
             Text("What are eating today?")
-                .font(.title)
                 .bold()
+            
             if selectedFood != .none {
                 Text(selectedFood ?? "")
                     .font(.largeTitle)
                     .bold()
                     .foregroundColor(.green)
+                    .id(selectedFood)
+                    .transition(.asymmetric(
+                        insertion: .opacity.animation(.easeInOut(duration: 0.5).delay(0.2)),
+                        removal: .opacity.animation(.easeInOut(duration: 0.4))))
+            }else{
+                EmptyView()
             }
             
-            Button("tell me!"){
-                selectedFood = food.shuffled().filter {
-                    $0 != selectedFood }.first
-            }
-            .font(.title)
-            .buttonStyle(.borderedProminent)
+            selectedFood != .none ? Color.pink : Color.blue
             
-            Button("Reset"){
-                selectedFood = .none
-            }
-            .font(.title)
-            .buttonStyle(.borderedProminent)
+            Button{
+                withAnimation{
+                    selectedFood = food.shuffled().filter {
+                        $0 != selectedFood }.first
+                }
+            } label: {
+                Text(selectedFood == .none ? "tell me!" : "another").frame(width: 200)
+                    .animation(.none, value: selectedFood)
+                    .transformEffect(.identity)
+            }.padding(.bottom, -15)
+            
+            Button{
+                withAnimation{
+                    selectedFood = .none
+                }
+            } label: {
+                Text("Reset").frame(width: 200)
+            }.buttonStyle(.bordered)
         }
         .padding()
+        .frame(maxHeight: .infinity)
+        .background(Color(.secondarySystemBackground))
+        .font(.title)
+        .buttonStyle(.borderedProminent)
+        .buttonBorderShape(.capsule)
+        .controlSize(.large)
+        .animation(.easeOut(duration: 0.6), value: selectedFood)
     }
 }
 
