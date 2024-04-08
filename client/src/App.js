@@ -9,8 +9,8 @@ import './css/AppMenu.css';
 const App = memo(() => {
   return (
     <div className='app'>
-    {/* 
-      <div className='topHeader'>
+    
+{/*       <div className='topHeader'>
         <NavLink to="/home" className="topMenu">Pasay</NavLink> 
       </div>
       <div className='leftMenu'>
@@ -21,8 +21,8 @@ const App = memo(() => {
       </div>
       <div className='rightMain'>
         { useRoutes(routes) }
-      </div> 
-    */}
+      </div>  */}
+    
       <div className='footBody'>
         { useRoutes(routes) }
       </div>

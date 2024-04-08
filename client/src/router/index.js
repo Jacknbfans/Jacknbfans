@@ -1,6 +1,7 @@
 import React from "react"
 import { Navigate } from "react-router-dom"
 
+const Login = React.lazy(() => import("../views/login/index"))
 const Home = React.lazy(() => import("../views/home/index"))
 const Websockets = React.lazy(() => import("../views/websockets/index"))
 const Rabbitmq = React.lazy(() => import("../views/rabbitmq/index"))
@@ -10,7 +11,11 @@ const Qps = React.lazy(() => import("../views/qps/index"))
 const routes = [
     {
         path: "/",
-        element: <Navigate to="/home"/>
+        element: <Navigate to="/login"/>
+    },
+    {
+        path: "/login",
+        element:<Login/>
     },
     {
         path: "/home",
