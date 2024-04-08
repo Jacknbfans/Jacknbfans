@@ -23,6 +23,7 @@
     "jade": "~1.11.0",
     "jsrsasign": "^11.1.0",
     "morgan": "~1.9.1",
+    "paypal-rest-sdk": "^1.8.1",
     "rabbitmq-express": "^1.0.4",
     "redis": "^4.6.13",
     "socket.io": "^4.7.4",

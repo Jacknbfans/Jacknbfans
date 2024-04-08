@@ -1,4 +1,4 @@
-import {Versions} from './versions.ts';
+import {Versions} from './versions.js';
 import {CompatClient} from './compat-client.ts';
 
 /**

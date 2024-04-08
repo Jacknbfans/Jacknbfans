@@ -5,8 +5,8 @@ import {
   frameCallbackType,
   messageCallbackType,
   wsErrorCallbackType
-} from './types.ts';
-import {Versions} from './versions.ts';
+} from './types.js';
+import {Versions} from './versions.js';
 
 /**
  * Configuration options for STOMP Client, each key corresponds to

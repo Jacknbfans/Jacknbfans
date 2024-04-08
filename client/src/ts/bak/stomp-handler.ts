@@ -14,8 +14,8 @@ import {
   IPublishParams,
   messageCallbackType,
   wsErrorCallbackType
-} from './types.ts';
-import {Versions} from './versions.ts';
+} from './types.js';
+import {Versions} from './versions.js';
 
 /**
  * The STOMP protocol handler

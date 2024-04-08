@@ -1,6 +1,6 @@
-import {IFrame} from './i-frame.ts';
-import {IMessage} from './i-message.ts';
-import {StompHeaders} from './stomp-headers.ts';
+import {IFrame} from './i-frame.js';
+import {IMessage} from './i-message.js';
+import {StompHeaders} from './stomp-headers.js';
 
 /**
  * This callback will receive a `string` as parameter.
