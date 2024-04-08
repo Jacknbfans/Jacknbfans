@@ -8,38 +8,44 @@
 import SwiftUI
 
 struct ContentView: View {
-    let food = ["Hamburger","salad","Pizza","spaghetti","ChickenBento","SlicedNoodles","hotPot","beefNoodles","KantoCooking"]
-    @State private var selectedFood: String?
+    let food = Food.examples
+    @State private var selectedFood: Food?
   
     var body: some View {
         VStack(spacing: 30) {
-            Image("dinner")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-
+            Group {
+                if selectedFood != .none{
+                    Text(selectedFood!.image)
+                        .font(.system(size: 200))
+                        .minimumScaleFactor(0.1)
+                        .lineLimit(1)
+                } else {
+                    Image("dinner")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                }
+            }.frame(height:250)
+                .border(.red)
+            
             Text("What are eating today?")
                 .bold()
             
             if selectedFood != .none {
-                Text(selectedFood ?? "")
+                Text(selectedFood!.name)
                     .font(.largeTitle)
                     .bold()
                     .foregroundColor(.green)
-                    .id(selectedFood)
+                    .id(selectedFood!.name)
                     .transition(.asymmetric(
                         insertion: .opacity.animation(.easeInOut(duration: 0.5).delay(0.2)),
                         removal: .opacity.animation(.easeInOut(duration: 0.4))))
-            }else{
-                EmptyView()
             }
-            
-            selectedFood != .none ? Color.pink : Color.blue
+
+            Spacer()
             
             Button{
-                withAnimation{
-                    selectedFood = food.shuffled().filter {
-                        $0 != selectedFood }.first
-                }
+                selectedFood = food.shuffled().first {
+                    $0 != selectedFood }
             } label: {
                 Text(selectedFood == .none ? "tell me!" : "another").frame(width: 200)
                     .animation(.none, value: selectedFood)
@@ -47,15 +53,13 @@ struct ContentView: View {
             }.padding(.bottom, -15)
             
             Button{
-                withAnimation{
-                    selectedFood = .none
-                }
+                selectedFood = .none
             } label: {
                 Text("Reset").frame(width: 200)
             }.buttonStyle(.bordered)
         }
         .padding()
-        .frame(maxHeight: .infinity)
+        .frame(maxWidth: .infinity,maxHeight: .infinity)
         .background(Color(.secondarySystemBackground))
         .font(.title)
         .buttonStyle(.borderedProminent)

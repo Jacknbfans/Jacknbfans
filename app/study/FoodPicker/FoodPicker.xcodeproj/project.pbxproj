@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB3B9AD52BC408CE00E0BD5E /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3B9AD42BC408CE00E0BD5E /* Food.swift */; };
 		DBB7566F2BBEAFB8004783E6 /* FoodPickerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7566E2BBEAFB8004783E6 /* FoodPickerApp.swift */; };
 		DBB756712BBEAFB8004783E6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB756702BBEAFB8004783E6 /* ContentView.swift */; };
 		DBB756732BBEAFBE004783E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBB756722BBEAFBE004783E6 /* Assets.xcassets */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DB3B9AD42BC408CE00E0BD5E /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		DBB7566B2BBEAFB8004783E6 /* FoodPicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodPicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBB7566E2BBEAFB8004783E6 /* FoodPickerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodPickerApp.swift; sourceTree = "<group>"; };
 		DBB756702BBEAFB8004783E6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 				DBB756702BBEAFB8004783E6 /* ContentView.swift */,
 				DBB756722BBEAFBE004783E6 /* Assets.xcassets */,
 				DBB756742BBEAFBE004783E6 /* Preview Content */,
+				DB3B9AD42BC408CE00E0BD5E /* Food.swift */,
 			);
 			path = FoodPicker;
 			sourceTree = "<group>";
@@ -139,6 +142,7 @@
 			files = (
 				DBB756712BBEAFB8004783E6 /* ContentView.swift in Sources */,
 				DBB7566F2BBEAFB8004783E6 /* FoodPickerApp.swift in Sources */,
+				DB3B9AD52BC408CE00E0BD5E /* Food.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
