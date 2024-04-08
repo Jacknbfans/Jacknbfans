@@ -28,6 +28,9 @@ function translate(key, language = 'en-us') {
  
 // 使用示例
 console.log(translate('welcome')); // 输出: Welcome to our site!
-console.log(translate('welcome', 'fr')); // 输出: Bienvenue sur notre site!
-console.log(translate('welcome', 'es')); // 输出: Bienvenido a nuestro sitio!
+console.log(translate('welcome', 'zh-cn')); // 输出: 欢迎访问我们的网站！
+console.log(translate('welcome', 'ja-jp')); // 输出: 当サイトへようこそ！
+console.log(translate('welcome', 'vi-vn')); // 输出: Chào mừng đến với trang web của chúng tôi!
+console.log(translate('welcome', 'pt-pt')); // 输出: Bem vindo ao nosso site!
+console.log(translate('welcome', 'hi-in')); // 输出: हमारी साइट पर आपका स्वागत है!
 console.log(translate('hello')); // 输出: hello (No translation for en)
