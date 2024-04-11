@@ -5,15 +5,13 @@
 //  Created by 侯羽 on 2024/4/8.
 //
 
-import SwiftUI
-
 struct Food: Equatable {
     var name: String
     var image: String
-    var calorie: Double
-    var carb: Double
-    var fat: Double
-    var protein: Double
+    @Suffix("Kcal") var calorie: Double = .zero
+    @Suffix("g") var carb: Double = .zero
+    @Suffix("g") var fat: Double = .zero
+    @Suffix("g") var protein: Double = .zero
     
     static let examples = [
         Food(name:"Hamburger", image:"🍔", calorie: 294, carb: 14, fat:24, protein: 17),
