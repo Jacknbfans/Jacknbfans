@@ -27,6 +27,7 @@ extension Animation {
 extension ShapeStyle where Self == Color {
     static var bg: Color { Color(.systemBackground) }
     static var bg2: Color { Color(.secondarySystemBackground) }
+    static var groupBg: Color { Color(.systemGroupedBackground) }
 }
 
 extension AnyTransition {

@@ -8,9 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		DB3B9AD52BC408CE00E0BD5E /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3B9AD42BC408CE00E0BD5E /* Food.swift */; };
-		DB4E54A52BC93AE000E7639B /* ShapeStyleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4E54A42BC93AE000E7639B /* ShapeStyleView.swift */; };
-		DB4E54A72BC9436500E7639B /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4E54A62BC9436500E7639B /* TextView.swift */; };
-		DB4E54A92BC9506A00E7639B /* ZIndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4E54A82BC9506A00E7639B /* ZIndexView.swift */; };
+		DB405E8D2BCD2D3800323803 /* ShapeStyleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB405E8C2BCD2D3800323803 /* ShapeStyleView.swift */; };
+		DB405E8F2BCD2D4800323803 /* ZIndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB405E8E2BCD2D4800323803 /* ZIndexView.swift */; };
+		DB405E912BCD2D5000323803 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB405E902BCD2D5000323803 /* TextView.swift */; };
+		DB405E932BCD370300323803 /* FoodListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB405E922BCD370300323803 /* FoodListView.swift */; };
 		DB7652112BC80214006F836F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7652102BC80214006F836F /* Extensions.swift */; };
 		DB7652132BC80A35006F836F /* SuffixWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7652122BC80A35006F836F /* SuffixWrapper.swift */; };
 		DBB7566F2BBEAFB8004783E6 /* FoodPickerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7566E2BBEAFB8004783E6 /* FoodPickerApp.swift */; };
@@ -22,9 +23,10 @@
 
 /* Begin PBXFileReference section */
 		DB3B9AD42BC408CE00E0BD5E /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
-		DB4E54A42BC93AE000E7639B /* ShapeStyleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeStyleView.swift; sourceTree = "<group>"; };
-		DB4E54A62BC9436500E7639B /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
-		DB4E54A82BC9506A00E7639B /* ZIndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZIndexView.swift; sourceTree = "<group>"; };
+		DB405E8C2BCD2D3800323803 /* ShapeStyleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeStyleView.swift; sourceTree = "<group>"; };
+		DB405E8E2BCD2D4800323803 /* ZIndexView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZIndexView.swift; sourceTree = "<group>"; };
+		DB405E902BCD2D5000323803 /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		DB405E922BCD370300323803 /* FoodListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodListView.swift; sourceTree = "<group>"; };
 		DB7652102BC80214006F836F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		DB7652122BC80A35006F836F /* SuffixWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuffixWrapper.swift; sourceTree = "<group>"; };
 		DBB7566B2BBEAFB8004783E6 /* FoodPicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodPicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,9 +51,9 @@
 		DBB756622BBEAFB8004783E6 = {
 			isa = PBXGroup;
 			children = (
-				DB4E54A82BC9506A00E7639B /* ZIndexView.swift */,
-				DB4E54A62BC9436500E7639B /* TextView.swift */,
-				DB4E54A42BC93AE000E7639B /* ShapeStyleView.swift */,
+				DB405E902BCD2D5000323803 /* TextView.swift */,
+				DB405E8E2BCD2D4800323803 /* ZIndexView.swift */,
+				DB405E8C2BCD2D3800323803 /* ShapeStyleView.swift */,
 				DBB7566D2BBEAFB8004783E6 /* FoodPicker */,
 				DBB7566C2BBEAFB8004783E6 /* Products */,
 			);
@@ -76,6 +78,7 @@
 				DBCD24722BC55AD900E70C0F /* PreviewDevice+.swift */,
 				DB7652102BC80214006F836F /* Extensions.swift */,
 				DB7652122BC80A35006F836F /* SuffixWrapper.swift */,
+				DB405E922BCD370300323803 /* FoodListView.swift */,
 			);
 			path = FoodPicker;
 			sourceTree = "<group>";
@@ -158,13 +161,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB405E932BCD370300323803 /* FoodListView.swift in Sources */,
+				DB405E8F2BCD2D4800323803 /* ZIndexView.swift in Sources */,
 				DB7652132BC80A35006F836F /* SuffixWrapper.swift in Sources */,
-				DB4E54A72BC9436500E7639B /* TextView.swift in Sources */,
 				DB7652112BC80214006F836F /* Extensions.swift in Sources */,
 				DBCD24732BC55AD900E70C0F /* PreviewDevice+.swift in Sources */,
 				DBB756712BBEAFB8004783E6 /* ContentView.swift in Sources */,
-				DB4E54A52BC93AE000E7639B /* ShapeStyleView.swift in Sources */,
-				DB4E54A92BC9506A00E7639B /* ZIndexView.swift in Sources */,
+				DB405E8D2BCD2D3800323803 /* ShapeStyleView.swift in Sources */,
+				DB405E912BCD2D5000323803 /* TextView.swift in Sources */,
 				DBB7566F2BBEAFB8004783E6 /* FoodPickerApp.swift in Sources */,
 				DB3B9AD52BC408CE00E0BD5E /* Food.swift in Sources */,
 			);

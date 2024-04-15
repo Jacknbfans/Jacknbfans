@@ -4,8 +4,11 @@
 //
 //  Created by 侯羽 on 2024/4/8.
 //
+import Foundation
 
-struct Food: Equatable {
+struct Food: Equatable, Identifiable {
+    let id = UUID()
+    
     var name: String
     var image: String
     @Suffix("Kcal") var calorie: Double = .zero
